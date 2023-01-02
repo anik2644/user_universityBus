@@ -74,24 +74,43 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          //
+          // await FirebaseFirestore.instance.collection("test").get().then((value) => {
+          //   value.docs.forEach((result)
+          //   {
+          //     print(result.data());
+          //     GeoPoint position = result.get('anik');
+          //     print(position.longitude.toString());
+          //
+          //
+          //     setState(() {
+          //       llong= position.longitude.toDouble();
+          //       llat =position.latitude.toDouble();
+          //
+          //     });
+          //   }
+          //   )
+          // }
+          // );
 
-          await FirebaseFirestore.instance.collection("test").get().then((value) => {
-            value.docs.forEach((result)
-            {
-              print(result.data());
-              GeoPoint position = result.get('loc');
-              print(position.longitude.toString());
+
+          var docSnapshot= await FirebaseFirestore.instance.collection("test").doc("location").get();
+          if (docSnapshot.exists) {
+
+                print(docSnapshot.data());
+                GeoPoint position = docSnapshot.get('currentLocation');
+                print(position.longitude.toString());
 
 
-              setState(() {
-                llong= position.longitude.toDouble();
-                llat =position.latitude.toDouble();
+                setState(() {
+                  llong= position.longitude.toDouble();
+                  llat =position.latitude.toDouble();
 
-              });
-            }
-            )
+                });
+
           }
-          );
+
+
 
 
         },
