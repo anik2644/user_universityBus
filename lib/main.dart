@@ -14,28 +14,31 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
 
+  static const LatLng destination = LatLng(23.725720007917214, 90.4027387200519);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  double llat=24.0,llong=85.36;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
         initialCameraPosition: CameraPosition(
             //target:  current,
              target: LatLng(
-              34.4, 90.4
+              24.0, 85.36
             ),
-            zoom: 45),
+            zoom: 2),
         polylines:{
           // Polyline(
           //   polylineId: PolylineId("route"),
@@ -62,8 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
         markers: {
           // const Marker(markerId: MarkerId("source"),position: sourceLocation),
           // Marker(markerId: const MarkerId("current"),position: current),
-          // // Marker(markerId: const MarkerId("currentLocation"),position: LatLng(currentlocation!.latitude!.toDouble(), currentlocation!.longitude!.toDouble()),),
-          // // const Marker(markerId: MarkerId("destination"),position: destination),
+          Marker(markerId: const MarkerId("currentLocation"),position: LatLng(llat.toDouble(), llong.toDouble()),),
+         // const Marker(markerId: MarkerId("destination"),position: MyApp.destination),
           // const Marker(markerId: MarkerId("my"),position: my),
           //
 
@@ -76,6 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
             value.docs.forEach((result)
             {
               print(result.data());
+              GeoPoint position = result.get('loc');
+              print(position.longitude.toString());
+
+
+              setState(() {
+                llong= position.longitude.toDouble();
+                llat =position.latitude.toDouble();
+
+              });
             }
             )
           }
