@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryHomePage.dart';
 
-import '../Location_view_templete.dart';
+import '../BusDetails/Location_view_templete.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({Key? key}) : super(key: key);

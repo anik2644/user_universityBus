@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/BusDetails/BusDetailsHomePage.dart';
 
 class SecondaryBody extends StatefulWidget {
   const SecondaryBody({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _SecondaryBodyState extends State<SecondaryBody> {
         //  History_model.His.add(index);
         Hotel.selectedHotel = index;
         print(Hotel.selectedHotel);
-        //  Navigator.push(context, MaterialPageRoute(builder: (context) => hotel_description()));},
+          Navigator.push(context, MaterialPageRoute(builder: (context) => BusDetailsHomePage()));
 
       },
       child: Container(

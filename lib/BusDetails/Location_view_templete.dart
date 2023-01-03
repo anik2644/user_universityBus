@@ -4,14 +4,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-class MyHomePage extends StatefulWidget {
+class LocationView extends StatefulWidget {
 
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LocationView> createState() => _LocationViewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LocationViewState extends State<LocationView> {
 
   double llat=24.0,llong=85.36;
 
