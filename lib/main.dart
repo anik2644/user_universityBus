@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   llong= position.longitude.toDouble();
                   llat =position.latitude.toDouble();
-
+ 
                 });
 
           }
