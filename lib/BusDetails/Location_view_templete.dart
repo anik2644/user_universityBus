@@ -95,8 +95,8 @@ class _LocationViewState extends State<LocationView> {
           print("Got it");
           appbartext= "Location shared";
         } else {
-          print("vacant");
           appbartext= "Location not shared";
+          print("vacant");
           /*await Loc.add({
             'trip': {
               BusDetailsBody.busName: null,
@@ -123,9 +123,10 @@ class _LocationViewState extends State<LocationView> {
         print(position.longitude.toString());
 
       setState(() {
+
               llong= position.longitude.toDouble();
               llat =position.latitude.toDouble();
-
+              // appbartext= appbartext;
             });
 
           }
@@ -151,6 +152,9 @@ class _LocationViewState extends State<LocationView> {
 
            */
 
+          setState(() {
+            
+          });
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
