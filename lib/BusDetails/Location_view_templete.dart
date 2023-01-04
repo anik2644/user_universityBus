@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'Bd.dart';
+
 
 class LocationView extends StatefulWidget {
 
@@ -14,12 +16,14 @@ class LocationView extends StatefulWidget {
 class _LocationViewState extends State<LocationView> {
 
   double llat=24.0,llong=85.36;
+  var chatDocId;
+  String appbartext="anik";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("anik"),
+        title: Text(appbartext),
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
@@ -67,7 +71,66 @@ class _LocationViewState extends State<LocationView> {
           //   )
           // }
           // );
+/*
+          var docSnapshot= await FirebaseFirestore.instance.collection("Location").doc("location").get();
+          if (docSnapshot.exists) {
 
+            print(docSnapshot.data());
+            GeoPoint position = docSnapshot.get('currentLocation');
+            print(position.longitude.toString());
+*/
+
+
+      CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
+
+      await Loc.where('trip', isEqualTo: {
+        BD.busName: null,
+        BD.sch: null,
+        BD.upDown: null,
+      }).limit(1).get().then((QuerySnapshot querySnapshot) async {
+        if (querySnapshot.docs.isNotEmpty) {
+          chatDocId = querySnapshot.docs.single.id;
+          print("object");
+          print(chatDocId);
+          print("Got it");
+          appbartext= "Location shared";
+        } else {
+          print("vacant");
+          appbartext= "Location not shared";
+          /*await Loc.add({
+            'trip': {
+              BusDetailsBody.busName: null,
+              BusDetailsBody.sch: null,
+              BusDetailsBody.upDown: null,
+            },
+            'currentLocation' : GeoPoint(value.latitude,value.longitude),
+          }).then((value) => {
+            chatDocId = value.id,
+            print("my"),
+            print(chatDocId)
+          });*/
+          //   print("Arrogant");
+        }
+      },
+      ).catchError((error) {});
+
+
+      var docSnapshot= await FirebaseFirestore.instance.collection("Location").doc(chatDocId).get();
+      if (docSnapshot.exists) {
+
+        print(docSnapshot.data());
+        GeoPoint position = docSnapshot.get('currentLocation');
+        print(position.longitude.toString());
+
+      setState(() {
+              llong= position.longitude.toDouble();
+              llat =position.latitude.toDouble();
+
+            });
+
+          }
+
+          /*
 
           var docSnapshot= await FirebaseFirestore.instance.collection("test").doc("location").get();
           if (docSnapshot.exists) {
@@ -86,7 +149,7 @@ class _LocationViewState extends State<LocationView> {
           }
 
 
-
+           */
 
         },
         tooltip: 'Increment',

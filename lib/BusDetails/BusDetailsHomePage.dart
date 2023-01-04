@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/BusDetails/Bd.dart';
 import 'package:userapp/BusDetails/BusDetailsBody.dart';
 import 'package:userapp/BusDetails/Location_view_templete.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
@@ -27,29 +28,21 @@ class _BusDetailsHomePageState extends State<BusDetailsHomePage> {
         backgroundColor: Colors.black,
       ),
 
-      body: BusDetailsBody(),
+      body: BD(),
       backgroundColor: Colors.white,
+
+      /*
       floatingActionButton: FloatingActionButton.extended(
             icon: Icon(Icons.location_on_rounded),
             label: Text("Track Location"),
             backgroundColor: Colors.green,
             onPressed: () {
-
-
               Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
-              // AlertDialog alert = AlertDialog(
-              //   title: Text('Contact us for Booking:'),
-              //   content: Text(hotel_number),
-              // );
-              // showDialog(
-              //   context: context,
-              //   builder: (BuildContext context) {
-              //     return alert;
-              //   },
-              // );
             }
             )
 
+
+       */
     );
   }
 }
