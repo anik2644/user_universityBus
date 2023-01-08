@@ -153,7 +153,7 @@ class _LocationViewState extends State<LocationView> {
            */
 
           setState(() {
-            
+
           });
         },
         tooltip: 'Increment',
