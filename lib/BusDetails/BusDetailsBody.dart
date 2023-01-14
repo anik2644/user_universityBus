@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BusDetailsBody extends StatefulWidget {
   const BusDetailsBody({Key? key}) : super(key: key);

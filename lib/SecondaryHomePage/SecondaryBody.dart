@@ -178,12 +178,12 @@ class Hotel{
     Hotel(
       "From: __, To: __",
       "From: __, To: __",
-      "Trip No: __4",
+      "Taranga",
       "This is Description place",
-      "https://as2.ftcdn.net/v2/jpg/01/37/82/77/1000_F_137827733_3Kddlca4RsZCrueAqsTemkO2Z2DCIH1C.jpg",
+      "https://mahfuzmanik.com/wp-content/uploads/2018/01/dhaka-university-lal-bus.jpg",
       //  "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
-      "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
-      "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
+      "https://scontent.fdac151-1.fna.fbcdn.net/v/t31.18172-8/22339186_1945451705471419_9144170248335838218_o.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0debeb&_nc_ohc=ZjDU600CB4gAX-L8_p-&_nc_ht=scontent.fdac151-1.fna&oh=00_AfAx2bMkFllOE2taoqoE399tKq4AxFgmk0V8WahISoaggA&oe=63E9E0BE",
+      "https://observerbd.com/2018/07/11/1531324829.jpg",
     ),
     Hotel(
       "From: __, To: __",

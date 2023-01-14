@@ -29,84 +29,138 @@ class _BDState extends State<BD> {
   String notic = "No notice so far";
 
 
-  Future<void> load_data() async {
-    // print(Hotel.hotelList[Hotel.selectedHotel].name);
-    Uptrips.clear();
-    Downtrips.clear();
-    var chatDocId;
-    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
+  var selectedBusId;
 
-    await Loc.where('name', isEqualTo: {
+Future<void> _getNotice() async {
+
+    CollectionReference schedule = FirebaseFirestore.instance.collection('schedule');
+
+    await schedule.where('name', isEqualTo: {
       'busName': Hotel.hotelList[Hotel.selectedHotel].name,
-      // BusDetailsBody.sc: null,
-    }).limit(1).get().then((QuerySnapshot querySnapshot) async {
-      if (querySnapshot.docs.isNotEmpty) {
-        chatDocId = querySnapshot.docs.single.id;
-        // print(chatDocId);
-        //  print("Got it");
-      } else {
-        // print("Vacant Collection");
-        // await Loc.add({
-        //   'trip': {
-        //     BusDetailsBody.name: null,
-        //     BusDetailsBody.sc: null,
-        //
-        //   },
-        //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
-        // }).then((value) => {
-        //   chatDocId = value});
-        // //   print("Arrogant");
-      }
-    },
-    ).catchError((error) {});
+      // currentUserId.toString(): null
+    }).limit(1)
+        .get()
+        .then(
+            (QuerySnapshot querySnapshot) async {
+          if (querySnapshot.docs.isNotEmpty) {
+            //  rreaddata();
+            selectedBusId = querySnapshot.docs.single.id;
+            print(selectedBusId);
+            //print("dound man");
+          } else {}
+        });
 
-    // print(chatDocId);
-    //  print("object1");
+        await FirebaseFirestore.instance.collection("schedule").doc(selectedBusId).snapshots().listen((userData) {
 
-    var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(chatDocId).get();
-    if (docSnapshot.exists) {
+          notic = userData.data()!['notice'];
+      // setState(() {
+      //   myId = userData.data()['uid'];
+      //   myUsername = userData.data()['name'];
+      //   myUrlAvatar = userData.data()['avatarurl'];
+      //
+      // });
+    });
 
-      // print(docSnapshot.data());
-      // GeoPoint position = docSnapshot.get('currentLocation');
-      // print(position.longitude.toString());
-      // print(docSnapshot.get('sch'));
 
-      //Uptrips = docSnapshot.get('sch');
-      List.from(docSnapshot.get('up')).forEach((element){
-        String data = element;
 
-        //then add the data to the List<Offset>, now we have a type Offset
-        Uptrips.add(data);
-      });
-
-      List.from(docSnapshot.get('down')).forEach((element){
-        String data = element;
-
-        //then add the data to the List<Offset>, now we have a type Offset
-        Downtrips.add(data);
-      });
+    // var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(selectedBusId).get();
+    // if (docSnapshot.exists) {
+    //   docSnapshot.data([notice]);
+    //   docSnapshot.data()?.forEach((key, value) {
+    //
+    //     print(value);
+    //   });
 
 
 
 
-      //print(Uptrips);
-      setState(() {
-        //  llong= position.longitude.toDouble();
-        //  llat =position.latitude.toDouble();
-
-        just= Uptrips[1];
-      });
+      // //print(Uptrips);
+      // setState(() {
+      //   //  llong= position.longitude.toDouble();
+      //   //  llat =position.latitude.toDouble();
+      //
+      // });
 
     }
+Future<void> load_data() async {
+  // print(Hotel.hotelList[Hotel.selectedHotel].name);
+  Uptrips.clear();
+  Downtrips.clear();
+  var chatDocId;
+  CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
 
+  await Loc.where('name', isEqualTo: {
+    'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+    // BusDetailsBody.sc: null,
+  }).limit(1).get().then((QuerySnapshot querySnapshot) async {
+    if (querySnapshot.docs.isNotEmpty) {
+      chatDocId = querySnapshot.docs.single.id;
+      // print(chatDocId);
+      //  print("Got it");
+    } else {
+      // print("Vacant Collection");
+      // await Loc.add({
+      //   'trip': {
+      //     BusDetailsBody.name: null,
+      //     BusDetailsBody.sc: null,
+      //
+      //   },
+      //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
+      // }).then((value) => {
+      //   chatDocId = value});
+      // //   print("Arrogant");
+    }
+  },
+  ).catchError((error) {});
+
+  // print(chatDocId);
+  //  print("object1");
+
+  var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(chatDocId).get();
+  if (docSnapshot.exists) {
+
+    // print(docSnapshot.data());
+    // GeoPoint position = docSnapshot.get('currentLocation');
+    // print(position.longitude.toString());
+    // print(docSnapshot.get('sch'));
+
+    //Uptrips = docSnapshot.get('sch');
+    List.from(docSnapshot.get('up')).forEach((element){
+      String data = element;
+
+      //then add the data to the List<Offset>, now we have a type Offset
+      Uptrips.add(data);
+    });
+
+    List.from(docSnapshot.get('down')).forEach((element){
+      String data = element;
+
+      //then add the data to the List<Offset>, now we have a type Offset
+      Downtrips.add(data);
+    });
+
+
+
+
+    //print(Uptrips);
+    setState(() {
+      //  llong= position.longitude.toDouble();
+      //  llat =position.latitude.toDouble();
+
+      just= Uptrips[1];
+    });
 
   }
 
 
+}
+
+ 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _getNotice();
     load_data();
   }
 

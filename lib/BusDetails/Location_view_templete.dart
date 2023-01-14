@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'Bd.dart';
+
+import 'package:flutter_map/flutter_map.dart';
+//import "package:latlong/latlong.dart" as latLng;
+import 'package:latlong2/latlong.dart';
 
 
 class LocationView extends StatefulWidget {
@@ -15,6 +19,44 @@ class LocationView extends StatefulWidget {
 
 class _LocationViewState extends State<LocationView> {
 
+
+  Widget MyBody()
+  {
+    return FlutterMap(
+      options: MapOptions(
+        center: LatLng(23.74, 90.4),
+        zoom: 15,
+        maxZoom: 18,
+        //minZoom: 10
+
+      ),
+
+      nonRotatedChildren: [
+        AttributionWidget.defaultWidget(
+          source: 'OpenStreetMap contributors',
+          onSourceTapped: null,
+        ),
+      ],
+
+      children: [
+
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'com.example.app',
+          // MarkerLayerOptions(),
+        ),
+        // CircleMarker(point: point, radius: radius),
+        // MarkerLayer( markers: CircleMarker(point: point, radius: radius) ,)
+        MarkerLayer( markers: [ Marker(point:LatLng(llat.toDouble(), llong.toDouble()) , builder: (context) => Icon(Icons.gps_fixed, color: Colors.red ,size: 50,)) ],)
+        //new MarkerLayerOptions(markers: ),
+
+      ],
+
+
+    );
+  }
+
+
   double llat=24.0,llong=85.36;
   var chatDocId;
   String appbartext="anik";
@@ -25,7 +67,9 @@ class _LocationViewState extends State<LocationView> {
       appBar: AppBar(
         title: Text(appbartext),
       ),
-      body: GoogleMap(
+      body: MyBody(),
+      /*
+      GoogleMap(
         initialCameraPosition: CameraPosition(
           //target:  current,
             target: LatLng(
@@ -51,6 +95,8 @@ class _LocationViewState extends State<LocationView> {
 
         },
       ),
+
+       */
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           //
