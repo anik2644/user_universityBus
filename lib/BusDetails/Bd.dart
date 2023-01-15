@@ -172,8 +172,11 @@ Future<void> load_data() async {
         children: [
           SizedBox(width: 6,),
           OutlinedButton(
-            style: ButtonStyle(),
-            onPressed: (){
+            style: OutlinedButton.styleFrom(
+              side: ud == "up" ? BorderSide(width: 5.0, color: Colors.blue): BorderSide(width: 5.0, color: Colors.black26),
+            ),
+              onPressed: ud == "up" ? ()
+            {
               // print(time);
               // print(ud);
               BD.busName= Hotel.hotelList[Hotel.selectedHotel].name;
@@ -186,7 +189,7 @@ Future<void> load_data() async {
 
               });
 
-            },
+            }: null,
             child: Text(time,style: TextStyle(fontSize: 25, color:Colors.blue ),),
           ),
           SizedBox(width: 6,),
@@ -434,7 +437,12 @@ Future<void> load_data() async {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(height: 30,),
-                    Card(child: Text("Up Trips:",style: TextStyle(fontSize: 20,),textAlign: TextAlign.left,)),
+                    ListTile(
+                      title: Text( "Up Trips:"//Hotel.hotelList[Hotel.selectedHotel].description
+                        /*'Hotel Description'*/
+                        ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                    ),
+                  //  ListTile( Text("Up Trips:",style: TextStyle(fontSize: 20,),textAlign: TextAlign.left,)),
                    // SizedBox(height: 30,),
                     Container(
                       height: 100,
@@ -451,7 +459,12 @@ Future<void> load_data() async {
                       ),
                     ),
                    // SizedBox(height: 30,),
-                    Card(child: Text("Down Trips:",style: TextStyle(fontSize: 20),)),
+                    ListTile(
+                      title: Text( "Down Trips:"//Hotel.hotelList[Hotel.selectedHotel].description
+                        /*'Hotel Description'*/
+                        ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                    ),
+                   // Card(child: Text("Down Trips:",style: TextStyle(fontSize: 20),)),
                    // SizedBox(height: 30,),
                     Container(
                       height: 100,
