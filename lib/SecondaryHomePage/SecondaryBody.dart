@@ -177,7 +177,7 @@ class Hotel{
     ),
     Hotel(
       "From: __, To: __",
-      "From: __, To: __",
+      "From: Mohammadpur, To: Curzon",
       "Taranga",
       "This is Description place",
       "https://mahfuzmanik.com/wp-content/uploads/2018/01/dhaka-university-lal-bus.jpg",
@@ -267,7 +267,7 @@ class Hotel{
     ),
     Hotel(
       "From: __, To: __",
-      "From: __, To: __",
+      "From: Mohammadpur, To: Curzon",
       "Trip No: __13",
       "This is Description place",
       "https://as2.ftcdn.net/v2/jpg/01/37/82/77/1000_F_137827733_3Kddlca4RsZCrueAqsTemkO2Z2DCIH1C.jpg",

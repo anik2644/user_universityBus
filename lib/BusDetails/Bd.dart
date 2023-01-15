@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/rendering.dart';
 import 'package:userapp/BusDetails/Location_view_templete.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -155,7 +156,7 @@ Future<void> load_data() async {
 
 }
 
- 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -165,26 +166,32 @@ Future<void> load_data() async {
   }
 
   Widget ScheduleButton(String time, String ud) {
-    return OutlinedButton(
-      onPressed: (){
+    return Container(
+     // color: Colors.cyanAccent,
+      child: Row(
+        children: [
+          SizedBox(width: 6,),
+          OutlinedButton(
+            style: ButtonStyle(),
+            onPressed: (){
+              // print(time);
+              // print(ud);
+              BD.busName= Hotel.hotelList[Hotel.selectedHotel].name;
+              BD.sch = time;
+              BD.upDown =ud;
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
 
-        // print(time);
-        // print(ud);
 
-        BD.busName= Hotel.hotelList[Hotel.selectedHotel].name;
-        BD.sch = time;
-        BD.upDown =ud;
+              setState(() {
 
+              });
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
-
-
-        setState(() {
-
-        });
-
-      },
-      child: Text(time),
+            },
+            child: Text(time,style: TextStyle(fontSize: 25, color:Colors.blue ),),
+          ),
+          SizedBox(width: 6,),
+        ],
+      ),
     );
   }
 
@@ -422,34 +429,45 @@ Future<void> load_data() async {
                 ),
               ),
               description(),
-              Container(
-                //  height: 500,//MediaQuery.of(context).size.height,
-
-                child: Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30,),
+                    Card(child: Text("Up Trips:",style: TextStyle(fontSize: 20,),textAlign: TextAlign.left,)),
+                   // SizedBox(height: 30,),
+                    Container(
+                      height: 100,
+                      child: Expanded(
                         child: ListView.builder(
                           //shrinkWrap: true,
-                            padding: EdgeInsets.only(left: 5,right: 25) ,
+                            scrollDirection: Axis.horizontal,
+
+                            padding: EdgeInsets.only(left: 25,right: 25,top: 5) ,
                             itemCount: Uptrips.length,
                             itemBuilder: (context, index) => ScheduleButton(
                               Uptrips[index],"up",
                             )),
                       ),
-                      SizedBox(width: 30,),
-                      Expanded(
+                    ),
+                   // SizedBox(height: 30,),
+                    Card(child: Text("Down Trips:",style: TextStyle(fontSize: 20),)),
+                   // SizedBox(height: 30,),
+                    Container(
+                      height: 100,
+                      child: Expanded(
                         child: ListView.builder(
                           //shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
                             itemCount: Downtrips.length,
-                            padding: EdgeInsets.only(right: 5,left: 25) ,
+                            padding: EdgeInsets.only(right: 25,left: 25,top: 10) ,
                             itemBuilder: (context, index) => ScheduleButton(
                                 Downtrips[index],"down"
                             )),
                       ),
+                    ),
 
-                    ],
-                  ),
+                  ],
                 ),
               ),
             ],
