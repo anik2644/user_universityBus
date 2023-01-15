@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:userapp/BusDetails/BusDetailsHomePage.dart';
+import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
 import 'HomePageComponent/HomePage.dart';
 
 Future<void> main() async {
+
+  Hotel.selectedHotel= 3;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp( MyApp());
@@ -23,7 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Homepage(),
+      home: BusDetailsHomePage(),
+      //Homepage(),
     );
   }
 }

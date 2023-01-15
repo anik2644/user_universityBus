@@ -566,56 +566,81 @@ Future<void> load_data() async {
                 ),
               ),
               description(),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 30,),
-                    ListTile(
-                      title: Text( "Up Trips:"//Hotel.hotelList[Hotel.selectedHotel].description
-                        /*'Hotel Description'*/
-                        ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                    ),
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30,),
+                  ListTile(
+                    title: Text( "Up Trips:"//Hotel.hotelList[Hotel.selectedHotel].description
+                      /*'Hotel Description'*/
+                      ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                  ),
                   //  ListTile( Text("Up Trips:",style: TextStyle(fontSize: 20,),textAlign: TextAlign.left,)),
-                   // SizedBox(height: 30,),
-                    Container(
-                      height: 100,
-                      child: Expanded(
-                        child: ListView.builder(
-                          //shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
+                  // SizedBox(height: 30,),
 
-                            padding: EdgeInsets.only(left: 25,right: 25,top: 5) ,
-                            itemCount: Uptrips.length,
-                            itemBuilder: (context, index) => ScheduleButton(index,
-                              Uptrips[index],"up",
-                            )),
-                      ),
-                    ),
-                   // SizedBox(height: 30,),
-                    ListTile(
-                      title: Text( "Down Trips:"//Hotel.hotelList[Hotel.selectedHotel].description
-                        /*'Hotel Description'*/
-                        ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                    ),
-                   // Card(child: Text("Down Trips:",style: TextStyle(fontSize: 20),)),
-                   // SizedBox(height: 30,),
-                    Container(
-                      height: 100,
-                      child: Expanded(
-                        child: ListView.builder(
-                          //shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: Downtrips.length,
-                            padding: EdgeInsets.only(right: 25,left: 25,top: 10) ,
-                            itemBuilder: (context, index) => ScheduleButton( index,
-                                Downtrips[index],"down"
-                            )),
-                      ),
-                    ),
+                  Container(
+                    height: 100,
+                    child: ListView.builder(
+                      //shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
 
-                  ],
-                ),
+                        padding: EdgeInsets.only(left: 25,right: 25,top: 5) ,
+                        itemCount: Uptrips.length,
+                        itemBuilder: (context, index) => ScheduleButton(index,
+                          Uptrips[index],"up",
+                        )),
+                  ),
+
+
+
+                  // Container(
+                  //   height: 100,
+                  //   child: Expanded(
+                  //     child: ListView.builder(
+                  //       //shrinkWrap: true,
+                  //         scrollDirection: Axis.horizontal,
+                  //
+                  //         padding: EdgeInsets.only(left: 25,right: 25,top: 5) ,
+                  //         itemCount: Uptrips.length,
+                  //         itemBuilder: (context, index) => ScheduleButton(index,
+                  //           Uptrips[index],"up",
+                  //         )),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 30,),
+                  ListTile(
+                    title: Text( "Down Trips:"//Hotel.hotelList[Hotel.selectedHotel].description
+                      /*'Hotel Description'*/
+                      ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                  ),
+                  // Card(child: Text("Down Trips:",style: TextStyle(fontSize: 20),)),
+                  // SizedBox(height: 30,),
+
+                  Container(
+                    height: 100,
+                    child: ListView.builder(
+                      //shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: Downtrips.length,
+                        padding: EdgeInsets.only(right: 25,left: 25,top: 10) ,
+                        itemBuilder: (context, index) => ScheduleButton( index,
+                            Downtrips[index],"down"
+                        )),
+                  ),
+                  // Container(
+                  //   height: 100,
+                  //   child: Expanded(
+                  //     child: ListView.builder(
+                  //       //shrinkWrap: true,
+                  //         scrollDirection: Axis.horizontal,
+                  //         itemCount: Downtrips.length,
+                  //         padding: EdgeInsets.only(right: 25,left: 25,top: 10) ,
+                  //         itemBuilder: (context, index) => ScheduleButton( index,
+                  //             Downtrips[index],"down"
+                  //         )),
+                  //   ),
+                  // ),
+                ],
               ),
             ],
 
