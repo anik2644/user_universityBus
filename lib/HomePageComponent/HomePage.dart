@@ -29,9 +29,8 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  Future openDialouge() => showDialog(
-      context: context,
-      builder: (BuildContext context) => Dialog(
+
+  Future openDialouge() => showDialog(context: context, builder: (BuildContext context) => Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0)), //this right here
           child: Container(
