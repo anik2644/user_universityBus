@@ -21,9 +21,12 @@ class BD extends StatefulWidget {
 class _BDState extends State<BD> {
 
 
-  var message_type_box_controller = new TextEditingController();
+  var _noticeController = new TextEditingController();
+  var _passCodeController = new TextEditingController();
+    //_noticeController
   List<String> Uptrips=   <String> ['0.0','7.02','8.0','7.72','60.0','74.02'];
   List<String> Downtrips=   <String> ['0.0','85.02','7.02','8.0','7.72','60.0','74.02'];
+  List<String> locShare=   <String> ['0.0','85.02','7.02','8.0','7.72','60.0'];
 
   String just= "just";
 
@@ -83,6 +86,7 @@ Future<void> _getNotice() async {
       // });
 
     }
+
 Future<void> load_data() async {
   // print(Hotel.hotelList[Hotel.selectedHotel].name);
   Uptrips.clear();
@@ -129,6 +133,7 @@ Future<void> load_data() async {
     List.from(docSnapshot.get('up')).forEach((element){
       String data = element;
 
+     // print(element.toString());
       //then add the data to the List<Offset>, now we have a type Offset
       Uptrips.add(data);
     });
@@ -156,6 +161,128 @@ Future<void> load_data() async {
 
 }
 
+  Future<void> locShareFlag() async {
+    locShare.clear();
+    var chatDocId;
+    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
+
+    await Loc.where('name', isEqualTo: {
+      'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+      // BusDetailsBody.sc: null,
+    }).limit(1).get().then((QuerySnapshot querySnapshot) async {
+      if (querySnapshot.docs.isNotEmpty) {
+        chatDocId = querySnapshot.docs.single.id;
+        // print(chatDocId);
+        //  print("Got it");
+      } else {
+        // print("Vacant Collection");
+        // await Loc.add({
+        //   'trip': {
+        //     BusDetailsBody.name: null,
+        //     BusDetailsBody.sc: null,
+        //
+        //   },
+        //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
+        // }).then((value) => {
+        //   chatDocId = value});
+        // //   print("Arrogant");
+      }
+    },
+    ).catchError((error) {});
+
+    // print(chatDocId);
+    //  print("object1");
+
+    var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(chatDocId).get();
+    if (docSnapshot.exists) {
+
+      // print(docSnapshot.data());
+      // GeoPoint position = docSnapshot.get('currentLocation');
+      // print(position.longitude.toString());
+      // print(docSnapshot.get('sch'));
+
+      //Uptrips = docSnapshot.get('sch');
+      List.from(docSnapshot.get('locShare')).forEach((element){
+        String data = element;
+
+        // print(element.toString());
+        //then add the data to the List<Offset>, now we have a type Offset
+        locShare.add(data);
+      });
+
+
+
+      //print(Uptrips);
+      setState(() {
+        //  llong= position.longitude.toDouble();
+        //  llat =position.latitude.toDouble();
+
+        //just= Uptrips[1];
+      });
+
+    }
+
+
+  }
+
+
+  Future openDialouge() => showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0)), //this right here
+          child: Container(
+              height: 200,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    TextField(
+                      decoration:InputDecoration(hintText: "Type Any Notice",) ,
+                      controller: _noticeController,
+                    ),
+                    SizedBox(height: 10,),
+                    TextField(
+                      controller: _passCodeController,
+                      decoration:InputDecoration(hintText: "PassCode",) ,
+                    ),
+                    TextButton(onPressed: (){
+
+                      int flag =0;
+                      for(int i=0;i< _noticeController.text.length;i++)
+                        {
+                          if(_noticeController.text.codeUnitAt(i)>64&&_noticeController.text.codeUnitAt(i)<91||_noticeController.text.codeUnitAt(i)>96&&_noticeController.text.codeUnitAt(i)<123)
+                         {
+                           flag =1;
+                         }
+                          //print(_noticeController.text[i]);
+                        }
+
+                      if(flag==1)
+                        {
+                          //print("object");
+
+                        //  print(_noticeController.text);
+                          notic =_noticeController.text;
+                        }
+
+
+                      setState(() {
+
+                      });
+                      Navigator.pop(context);
+                      print("already pressed");
+                    }, child: Text("Submit")),
+                  ],
+                ),
+              )
+          )));
+
+
+
 
   @override
   void initState() {
@@ -163,9 +290,10 @@ Future<void> load_data() async {
     super.initState();
     _getNotice();
     load_data();
+    locShareFlag();
   }
 
-  Widget ScheduleButton(String time, String ud) {
+  Widget ScheduleButton(int index,String time, String ud) {
     return Container(
      // color: Colors.cyanAccent,
       child: Row(
@@ -173,9 +301,11 @@ Future<void> load_data() async {
           SizedBox(width: 6,),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
-              side: ud == "up" ? BorderSide(width: 5.0, color: Colors.blue): BorderSide(width: 5.0, color: Colors.black26),
+              side: ud == "down" ?BorderSide(width: 5.0, color: Colors.black26):
+              locShare[index]=="1" ? BorderSide(width: 5.0, color: Colors.blue):
+              locShare[index]=="0" ? BorderSide(width: 5.0, color: Colors.green):BorderSide(width: 5.0, color: Colors.black26) ,
             ),
-              onPressed: ud == "up" ? ()
+              onPressed: ud == "down" ? null:  locShare[index]=="0"? ()
             {
               // print(time);
               // print(ud);
@@ -189,7 +319,11 @@ Future<void> load_data() async {
 
               });
 
-            }: null,
+            }: locShare[index]=="1"? (){
+
+                openDialouge();
+
+              }:null,
             child: Text(time,style: TextStyle(fontSize: 25, color:Colors.blue ),),
           ),
           SizedBox(width: 6,),
@@ -453,7 +587,7 @@ Future<void> load_data() async {
 
                             padding: EdgeInsets.only(left: 25,right: 25,top: 5) ,
                             itemCount: Uptrips.length,
-                            itemBuilder: (context, index) => ScheduleButton(
+                            itemBuilder: (context, index) => ScheduleButton(index,
                               Uptrips[index],"up",
                             )),
                       ),
@@ -474,7 +608,7 @@ Future<void> load_data() async {
                             scrollDirection: Axis.horizontal,
                             itemCount: Downtrips.length,
                             padding: EdgeInsets.only(right: 25,left: 25,top: 10) ,
-                            itemBuilder: (context, index) => ScheduleButton(
+                            itemBuilder: (context, index) => ScheduleButton( index,
                                 Downtrips[index],"down"
                             )),
                       ),

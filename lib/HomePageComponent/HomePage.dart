@@ -58,33 +58,6 @@ class _HomepageState extends State<Homepage> {
                 ),
               )
           )));
-              /*
-        (context) => AlertDialog(
-    title: Text("Yourname"),
-      content: Container(
-        height: 500,
-        child: Column(
 
-          children: [
-            TextField(
-              decoration:InputDecoration(hintText: "ennterYouNamer",) ,
-            ),
-            SizedBox(height: 10,),
-            TextField(
-
-              decoration:InputDecoration(hintText: "ennterYouNamer",) ,
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(onPressed: (){
-          print("already pressed");
-        }, child: Text("Submit"))
-      ],
-
-  ),
-
-         */
 
 }
