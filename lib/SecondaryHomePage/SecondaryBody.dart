@@ -142,7 +142,7 @@ class _SecondaryBodyState extends State<SecondaryBody> {
 
 class Hotel{
 
-  static int selectedHotel = 0;
+  static int selectedHotel = 3;
   static List<Hotel> hotelList = [
 
     Hotel(

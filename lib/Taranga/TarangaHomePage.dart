@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/BusDetails/Bd.dart';
@@ -11,6 +14,7 @@ import 'package:userapp/Taranga/TarangaBusBody.dart';
 import 'package:userapp/Taranga/TarangaFloatingButton.dart';
 
 import '../constants.dart';
+import 'package:geolocator/geolocator.dart';
 
 class TarangaHomePage extends StatefulWidget {
 
@@ -19,6 +23,52 @@ class TarangaHomePage extends StatefulWidget {
 }
 
 class _TarangaHomePageState extends State<TarangaHomePage> {
+
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+
+  showDialogBox() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('No Connection'),
+      content: const Text('Please check your internet connectivity'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+            setState(() => isAlertSet = false);
+            isDeviceConnected =
+            await InternetConnectionChecker().hasConnection;
+            if (!isDeviceConnected && isAlertSet == false) {
+              showDialogBox();
+              setState(() => isAlertSet = true);
+            }
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getConnectivity();
+    super.initState();
+  }
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+            (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
 
 
 

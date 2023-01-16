@@ -203,7 +203,7 @@ class _LocationViewState extends State<LocationView> {
           });
         },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.location_on_sharp),
       ),
     );
   }
