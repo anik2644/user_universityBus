@@ -130,7 +130,7 @@ class _LocationViewState extends State<LocationView> {
       CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
 
       await Loc.where('trip', isEqualTo: {
-        BD.busName: null,
+        "Taranga": null,
         BD.sch: null,
         BD.upDown: null,
       }).limit(1).get().then((QuerySnapshot querySnapshot) async {

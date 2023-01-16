@@ -30,6 +30,7 @@ class TarangaBusBody extends StatefulWidget {
 
 class _TarangaBusBodyState extends State<TarangaBusBody> {
 
+  int submitFlag =0;
 
   var _noticeController = new TextEditingController();
   var _passCodeController = new TextEditingController();
@@ -404,44 +405,6 @@ Future openDialouge(int index) => showDialog(
 
 
 
-                        if(AllStaticVariables.gps_share_flag==0)
-                        {
-
-                          print("Hey I Have Come Here");
-                          CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
-                          await Loc.where('trip', isEqualTo: {
-                            AllStaticVariables.busName: null,
-                            AllStaticVariables.sch: null,
-                            AllStaticVariables.upDown: null,
-                          }).limit(1).get().then((QuerySnapshot querySnapshot) async {
-                            if (querySnapshot.docs.isNotEmpty) {
-                              // chatDocId = querySnapshot.docs.single.id;
-                              AllStaticVariables.selectedtrip = querySnapshot.docs.single.id;
-                              // print("object");
-                              print( AllStaticVariables.selectedtrip);
-                              print("Got it");
-                            } else {
-                              print("vacant");
-                              await Loc.add({
-                                'trip': {
-                                  AllStaticVariables.busName: null,
-                                  AllStaticVariables.sch: null,
-                                  AllStaticVariables.upDown: null,
-                                },
-                                'currentLocation' : GeoPoint(34.4,90.4),
-                              }).then((value) => {
-                                //chatDocId = value.id,
-                                AllStaticVariables.selectedtrip= value.id,
-                                print("my"),
-                                print( AllStaticVariables.selectedtrip)
-                              });
-                              //   print("Arrogant");
-                            }
-                          },
-                          ).catchError((error) {});
-                        }
-
-
                         AllStaticVariables.locationSubscription= location.onLocationChanged.listen((loc.LocationData currentLocation) async {
 
                           if (AllStaticVariables.gps_share_flag == 1) {
@@ -583,12 +546,51 @@ Future openDialouge(int index) => showDialog(
 
               });
 
-            }: TarangaBusBody.locShare[index]=="1"? (){
+            }: TarangaBusBody.locShare[index]=="1"? () async {
 
               AllStaticVariables.upDown=ud;
               AllStaticVariables.sch=time;
 
-                openDialouge(index);
+              if(AllStaticVariables.gps_share_flag==0)
+              {
+
+                print("Hey I Have Come Here");
+                CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
+                await Loc.where('trip', isEqualTo: {
+                  AllStaticVariables.busName: null,
+                  AllStaticVariables.sch: null,
+                  AllStaticVariables.upDown: null,
+                }).limit(1).get().then((QuerySnapshot querySnapshot) async {
+                  if (querySnapshot.docs.isNotEmpty) {
+                    // chatDocId = querySnapshot.docs.single.id;
+                    AllStaticVariables.selectedtrip = querySnapshot.docs.single.id;
+                    // print("object");
+                    print( AllStaticVariables.selectedtrip);
+                    print("Got it");
+                  } else {
+                    print("vacant");
+                    await Loc.add({
+                      'trip': {
+                        AllStaticVariables.busName: null,
+                        AllStaticVariables.sch: null,
+                        AllStaticVariables.upDown: null,
+                      },
+                      'currentLocation' : GeoPoint(34.4,90.4),
+                    }).then((value) => {
+                      //chatDocId = value.id,
+                      AllStaticVariables.selectedtrip= value.id,
+                      print("my"),
+                      print( AllStaticVariables.selectedtrip)
+                    });
+                    //   print("Arrogant");
+                  }
+                },
+                ).catchError((error) {});
+              }
+
+
+
+              openDialouge(index);
 
               }:null,
             child: Text(time,style: TextStyle(fontSize: 25, color:Colors.blue ),),
