@@ -403,11 +403,50 @@ Future openDialouge(int index) => showDialog(
                         await location.changeSettings(accuracy: loc.LocationAccuracy.high,distanceFilter: 1);
 
 
+
+                        if(AllStaticVariables.gps_share_flag==0)
+                        {
+
+                          print("Hey I Have Come Here");
+                          CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
+                          await Loc.where('trip', isEqualTo: {
+                            AllStaticVariables.busName: null,
+                            AllStaticVariables.sch: null,
+                            AllStaticVariables.upDown: null,
+                          }).limit(1).get().then((QuerySnapshot querySnapshot) async {
+                            if (querySnapshot.docs.isNotEmpty) {
+                              // chatDocId = querySnapshot.docs.single.id;
+                              AllStaticVariables.selectedtrip = querySnapshot.docs.single.id;
+                              // print("object");
+                              print( AllStaticVariables.selectedtrip);
+                              print("Got it");
+                            } else {
+                              print("vacant");
+                              await Loc.add({
+                                'trip': {
+                                  AllStaticVariables.busName: null,
+                                  AllStaticVariables.sch: null,
+                                  AllStaticVariables.upDown: null,
+                                },
+                                'currentLocation' : GeoPoint(34.4,90.4),
+                              }).then((value) => {
+                                //chatDocId = value.id,
+                                AllStaticVariables.selectedtrip= value.id,
+                                print("my"),
+                                print( AllStaticVariables.selectedtrip)
+                              });
+                              //   print("Arrogant");
+                            }
+                          },
+                          ).catchError((error) {});
+                        }
+
+
                         AllStaticVariables.locationSubscription= location.onLocationChanged.listen((loc.LocationData currentLocation) async {
 
                           if (AllStaticVariables.gps_share_flag == 1) {
 
-                            print("with come");
+                           // print("with come");
                             int time_flag=1;
 
                             DateTime current_time = new DateTime.now();
@@ -447,42 +486,10 @@ Future openDialouge(int index) => showDialog(
 
                             setState(() {});
                           }
-                          if(AllStaticVariables.gps_share_flag==0)
-                          {
 
-                            CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
-                            await Loc.where('trip', isEqualTo: {
-                              AllStaticVariables.busName: null,
-                              AllStaticVariables.sch: null,
-                              AllStaticVariables.upDown: null,
-                            }).limit(1).get().then((QuerySnapshot querySnapshot) async {
-                              if (querySnapshot.docs.isNotEmpty) {
-                                // chatDocId = querySnapshot.docs.single.id;
-                                AllStaticVariables.selectedtrip = querySnapshot.docs.single.id;
-                                print("object");
-                                print( AllStaticVariables.selectedtrip);
-                                print("Got it");
-                              } else {
-                                print("vacant");
-                                await Loc.add({
-                                  'trip': {
-                                    AllStaticVariables.busName: null,
-                                    AllStaticVariables.sch: null,
-                                    AllStaticVariables.upDown: null,
-                                  },
-                                  'currentLocation' : GeoPoint(34.4,90.4),
-                                }).then((value) => {
-                                  //chatDocId = value.id,
-                                  AllStaticVariables.selectedtrip= value.id,
-                                  print("my"),
-                                  print( AllStaticVariables.selectedtrip)
-                                });
-                                //   print("Arrogant");
-                              }
-                            },
-                            ).catchError((error) {});
-                          }
 
+                          print(AllStaticVariables.selectedtrip);
+                          print("object");
                           await FirebaseFirestore.instance.collection("Location").doc(
                               AllStaticVariables.selectedtrip).update({
                             'currentLocation': GeoPoint(currentLocation.latitude!, currentLocation.longitude!)
