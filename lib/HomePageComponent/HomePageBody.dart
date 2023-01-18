@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryHomePage.dart';
-
+import 'package:userapp/Taranga/TarangaHomePage.dart';
 import '../BusDetails/Location_view_templete.dart';
+import '../SecondaryHomePage/SecondaryBody.dart';
+import '../constants.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({Key? key}) : super(key: key);
@@ -12,6 +14,15 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
+
+
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -24,7 +35,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             ),*/
           GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>SecondaryHomepage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>TarangaHomePage()));
               setState(() {
               });
             },

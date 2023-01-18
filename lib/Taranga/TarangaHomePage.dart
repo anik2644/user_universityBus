@@ -8,7 +8,7 @@ import 'package:userapp/BusDetails/BusDetailsBody.dart';
 import 'package:userapp/BusDetails/Location_view_templete.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:userapp/Taranga/TarangaAppBar.dart';
 import 'package:userapp/Taranga/TarangaBusBody.dart';
 import 'package:userapp/Taranga/TarangaFloatingButton.dart';
@@ -18,15 +18,21 @@ import 'package:geolocator/geolocator.dart';
 
 class TarangaHomePage extends StatefulWidget {
 
+  static String appbar_text = Hotel.hotelList[Hotel.selectedHotel].name;
+
   @override
   State<TarangaHomePage> createState() => _TarangaHomePageState();
 }
+
 
 class _TarangaHomePageState extends State<TarangaHomePage> {
 
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
+
+
+
 
 
   showDialogBox() => showCupertinoDialog<String>(
@@ -57,6 +63,7 @@ class _TarangaHomePageState extends State<TarangaHomePage> {
   void initState() {
     // TODO: implement initState
     getConnectivity();
+   // shareflagset();
     super.initState();
   }
   getConnectivity() =>
@@ -74,23 +81,26 @@ class _TarangaHomePageState extends State<TarangaHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          Hotel.hotelList[Hotel.selectedHotel].name,
-          style: const TextStyle(
-              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
+    return RefreshIndicator(
+      onRefresh: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => super.widget)),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+           TarangaHomePage.appbar_text,// Hotel.hotelList[Hotel.selectedHotel].name,
+            style: const TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: Colors.black,
         ),
-        backgroundColor: Colors.black,
+
+        body: TarangaBusBody(),
+
+        floatingActionButton: AllStaticVariables.gps_share_flag==1?
+        TarangaFloatingButton() :
+        null,
       ),
-
-      body: TarangaBusBody(),
-
-      floatingActionButton: AllStaticVariables.gps_share_flag==1?
-      TarangaFloatingButton() :
-      null,
     );
   }
 }

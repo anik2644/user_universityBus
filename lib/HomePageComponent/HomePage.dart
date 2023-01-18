@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:userapp/HomePageComponent/Drawer.dart';
 import 'package:userapp/HomePageComponent/HomePageBody.dart';
 import 'package:userapp/BusDetails/Location_view_templete.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../SecondaryHomePage/SecondaryBody.dart';
+import '../constants.dart'; //
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -12,6 +16,8 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +27,54 @@ class _HomepageState extends State<Homepage> {
       ),
       body: HomePageBody(),
       drawer: Mydrawer(),
-      floatingActionButton: FloatingActionButton(
+      //
+       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          openDialouge();
+
+          shareflagset();
+
         },
       ),
+
     );
   }
+  Future<void> shareflagset() async {
+    List<String> locShare=   <String> ['2','0','1','1','1','1','1','1','1'];
+    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
+
+    await Loc.where('name', isEqualTo: {
+      'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+      // BusDetailsBody.sc: null,
+    }).limit(1).get().then((QuerySnapshot querySnapshot) async {
+      if (querySnapshot.docs.isNotEmpty) {
+        AllStaticVariables. chatDocId = querySnapshot.docs.single.id;
+        // print(chatDocId);
+        //  print("Got it");
+      } else {
+        // print("Vacant Collection");
+        // await Loc.add({
+        //   'trip': {
+        //     BusDetailsBody.name: null,
+        //     BusDetailsBody.sc: null,
+        //
+        //   },
+        //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
+        // }).then((value) => {
+        //   chatDocId = value});
+        // //   print("Arrogant");
+      }
+    },
+    ).catchError((error) {});
 
 
+
+    await FirebaseFirestore.instance.collection('schedule').doc(AllStaticVariables.chatDocId)
+        .update({
+      "locShare": locShare ,
+    });
+  }
+
+/*
   Future openDialouge() => showDialog(context: context, builder: (BuildContext context) => Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0)), //this right here
@@ -57,6 +102,6 @@ class _HomepageState extends State<Homepage> {
                 ),
               )
           )));
-
+*/
 
 }

@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:userapp/Taranga/TarangaHomePage.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
+import 'package:userapp/test.dart';
 import 'HomePageComponent/HomePage.dart';
 
 Future<void> main() async {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TarangaHomePage(),
+      home: Homepage(), //TarangaHomePage(),
       //Homepage(),
     );
   }

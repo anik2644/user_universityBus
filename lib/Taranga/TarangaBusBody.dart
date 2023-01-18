@@ -21,7 +21,7 @@ class TarangaBusBody extends StatefulWidget {
   static String sch= "8.00";
   static String upDown= "up";
 
-  static List<String> locShare=   <String> ['0','1','1','1','1','0','1','1','1'];
+  static List<String> locShare=   <String> ['2','1','1','1','1','0','1','1','1'];
 
 
   @override
@@ -452,7 +452,8 @@ Future openDialouge(int index) => showDialog(
 
 
                           print(AllStaticVariables.selectedtrip);
-                          print("object");
+                          print(currentLocation.latitude!);
+                          print(currentLocation.longitude!);
                           await FirebaseFirestore.instance.collection("Location").doc(
                               AllStaticVariables.selectedtrip).update({
                             'currentLocation': GeoPoint(currentLocation.latitude!, currentLocation.longitude!)
@@ -476,7 +477,11 @@ Future openDialouge(int index) => showDialog(
                           // current= currentLocation.longitude!;
                           // print(currentLocation.longitude);
                           // print("object222");
-                          setState(() {});
+                          setState(() {
+                            latt =currentLocation.latitude!.toString();
+                            lonn =currentLocation.longitude!.toString();
+                            TarangaHomePage.appbar_text="location: $latt ,,$lonn ";
+                          });
                         });
                       }
 
@@ -692,6 +697,9 @@ Future openDialouge(int index) => showDialog(
     );
   }
 
+
+  String latt="0.00";
+  String lonn="0.00";
 
   @override
   Widget build(BuildContext context) {
@@ -911,6 +919,9 @@ Future openDialouge(int index) => showDialog(
                   // ),
                 ],
               ),
+
+              // Text(latt),
+              // Text(lonn),
             ],
 
           ),
