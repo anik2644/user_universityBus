@@ -33,7 +33,7 @@ class _TestState extends State<Test> {
     CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
 
     await Loc.where('name', isEqualTo: {
-      'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+      'busName': Bus.busList[Bus.selectedBus].name,
       // BusDetailsBody.sc: null,
     }).limit(1).get().then((QuerySnapshot querySnapshot) async {
       if (querySnapshot.docs.isNotEmpty) {

@@ -17,7 +17,7 @@ class _TarangaAppbarState extends State<TarangaAppbar> {
     return AppBar(
       centerTitle: true,
       title: Text(
-        Hotel.hotelList[Hotel.selectedHotel].name,
+        Bus.busList[Bus.selectedBus].name,
         style: const TextStyle(
             fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
       ),

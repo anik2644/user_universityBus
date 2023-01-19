@@ -27,7 +27,7 @@ class _BusDetailsBodyState extends State<BusDetailsBody> {
                 Container(
                   //padding:  EdgeInsets.only(bottom: 8),
                   child: Text(
-                    Hotel.hotelList[Hotel.selectedHotel].name,
+                    Bus.busList[Bus.selectedBus].name,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -42,7 +42,7 @@ class _BusDetailsBodyState extends State<BusDetailsBody> {
                       color: Colors.green,
                     ),
                     Text(
-                      Hotel.hotelList[Hotel.selectedHotel].address,
+                      Bus.busList[Bus.selectedBus].address,
                       style: TextStyle(
                           color: Colors.grey[500], fontWeight: FontWeight.bold),
                     ),
@@ -205,7 +205,7 @@ class _BusDetailsBodyState extends State<BusDetailsBody> {
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
                           image: NetworkImage(
-                              Hotel.hotelList[Hotel.selectedHotel].x),
+                              Bus.busList[Bus.selectedBus].x),
                           //"https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg"),
                           fit: BoxFit.cover,
                         ),
@@ -219,7 +219,7 @@ class _BusDetailsBodyState extends State<BusDetailsBody> {
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
                           image: NetworkImage(
-                              Hotel.hotelList[Hotel.selectedHotel].y
+                              Bus.busList[Bus.selectedBus].y
                             // "https://cf.bstatic.com/xdata/images/hotel/max1280x900/121123916.jpg?k=4c7205e458ef9d368d14ad4aacd8a45c394110e2b51f2de47a1ffb8d1765cfd6&o=&hp=1"
                           ),
                           fit: BoxFit.cover,
@@ -234,7 +234,7 @@ class _BusDetailsBodyState extends State<BusDetailsBody> {
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
                           image: NetworkImage(
-                              Hotel.hotelList[Hotel.selectedHotel].z
+                              Bus.busList[Bus.selectedBus].z
                             //"https://i.travelapi.com/hotels/10000000/9750000/9746600/9746513/b36e79aa_z.jpg"
                           ),
                           fit: BoxFit.cover,
@@ -347,7 +347,7 @@ class _BusDetailsBodyState extends State<BusDetailsBody> {
                               onPressed: () {
                                 AlertDialog alert = AlertDialog(
                                   title: Text('Location:'),
-                                  content: Text( Hotel.hotelList[Hotel.selectedHotel].location),
+                                  content: Text( Bus.busList[Bus.selectedBus].location),
                                 );
                                 showDialog(
                                   context: context,

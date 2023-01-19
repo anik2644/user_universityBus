@@ -19,8 +19,8 @@ class _SecondaryBodyState extends State<SecondaryBody> {
 
       onTap: () {
         //  History_model.His.add(index);
-        Hotel.selectedHotel = index;
-        print(Hotel.selectedHotel);
+        Bus.selectedBus = index;
+        print(Bus.selectedBus);
           Navigator.push(context, MaterialPageRoute(builder: (context) => BusDetailsHomePage()));
 
       },
@@ -61,10 +61,10 @@ class _SecondaryBodyState extends State<SecondaryBody> {
     ),);
   }
 
-  List<Hotel> display_list = List.from(Hotel.hotelList);
+  List<Bus> display_list = List.from(Bus.busList);
   void updateList(String value) {
     setState(() {
-      display_list = Hotel.hotelList
+      display_list = Bus.busList
           .where((element) =>
           element.name!.toLowerCase().contains(value.toLowerCase()))
           .toList();
@@ -140,12 +140,12 @@ class _SecondaryBodyState extends State<SecondaryBody> {
   }
 }
 
-class Hotel{
+class Bus{
 
-  static int selectedHotel = 3;
-  static List<Hotel> hotelList = [
+  static int selectedBus = 3;
+  static List<Bus> busList = [
 
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __1",
@@ -155,7 +155,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __2",
@@ -165,7 +165,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __3",
@@ -175,17 +175,18 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: Mohammadpur, To: Curzon",
       "Taranga",
       "This is Description place",
-      "https://mahfuzmanik.com/wp-content/uploads/2018/01/dhaka-university-lal-bus.jpg",
+      "https://drive.google.com/uc?export=view&id=1-EOGwDfEkofuyoQYL0HnrfV8mnt3eBk9",
+      // "https://mahfuzmanik.com/wp-content/uploads/2018/01/dhaka-university-lal-bus.jpg",
       //  "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://scontent.fdac151-1.fna.fbcdn.net/v/t31.18172-8/22339186_1945451705471419_9144170248335838218_o.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0debeb&_nc_ohc=ZjDU600CB4gAX-L8_p-&_nc_ht=scontent.fdac151-1.fna&oh=00_AfAx2bMkFllOE2taoqoE399tKq4AxFgmk0V8WahISoaggA&oe=63E9E0BE",
       "https://observerbd.com/2018/07/11/1531324829.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __5",
@@ -195,7 +196,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __6",
@@ -205,7 +206,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __7",
@@ -215,7 +216,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __8",
@@ -225,7 +226,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __9",
@@ -235,7 +236,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __10",
@@ -245,7 +246,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __11",
@@ -255,7 +256,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __12",
@@ -265,7 +266,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: Mohammadpur, To: Curzon",
       "Trip No: __13",
@@ -275,7 +276,7 @@ class Hotel{
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
       "https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg",
     ),
-    Hotel(
+    Bus(
       "From: __, To: __",
       "From: __, To: __",
       "Trip No: __14",
@@ -374,7 +375,7 @@ class Hotel{
 
 
   //
-  Hotel(String location,String address,String name,String description,String x,String y,String z)
+  Bus(String location,String address,String name,String description,String x,String y,String z)
   {
 
     this.location=location;

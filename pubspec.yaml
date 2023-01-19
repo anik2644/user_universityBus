@@ -41,20 +41,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_map: ^3.1.0
   latlong2: ^0.8.0
 
   flutter_offline: ^2.1.0
   internet_connection_checker: ^0.0.1+4
-
+  permission_handler: ^10.2.0
 
 
   carousel_slider: ^4.2.1
@@ -73,11 +66,13 @@ dev_dependencies:
   firebase_storage: ^11.0.2
 
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+dependency_overrides:
+  connectivity_plus: ^3.0.2
+  flutter_offline: ^2.1.0
 
-# The following section is specific to Flutter packages.
+
 flutter:
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

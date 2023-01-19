@@ -25,15 +25,12 @@ class _TarangaFloatingButtonState extends State<TarangaFloatingButton> {
         // Geolocator.
         //AllStaticVariables.mapshareflag=0;
         AllStaticVariables.gps_share_flag=0;
-
-
         TarangaBusBody.locShare[AllStaticVariables.location_share_schedule_index]="2";
         print(AllStaticVariables.chatDocId);
         await FirebaseFirestore.instance.collection('schedule').doc(AllStaticVariables.chatDocId)
             .update({
           "locShare": TarangaBusBody.locShare
         });
-
 
         loc.Location.instance.enableBackgroundMode(enable: false);
         AllStaticVariables.locationSubscription.cancel();

@@ -23,7 +23,7 @@ class _BusDetailsHomePageState extends State<BusDetailsHomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          Hotel.hotelList[Hotel.selectedHotel].name,
+          Bus.busList[Bus.selectedBus].name,
           style: const TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
         ),

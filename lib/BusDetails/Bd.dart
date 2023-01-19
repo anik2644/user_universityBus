@@ -40,7 +40,7 @@ Future<void> _getNotice() async {
     CollectionReference schedule = FirebaseFirestore.instance.collection('schedule');
 
     await schedule.where('name', isEqualTo: {
-      'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+      'busName': Bus.busList[Bus.selectedBus].name,
       // currentUserId.toString(): null
     }).limit(1)
         .get()
@@ -95,7 +95,7 @@ Future<void> load_data() async {
   CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
 
   await Loc.where('name', isEqualTo: {
-    'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+    'busName': Bus.busList[Bus.selectedBus].name,
     // BusDetailsBody.sc: null,
   }).limit(1).get().then((QuerySnapshot querySnapshot) async {
     if (querySnapshot.docs.isNotEmpty) {
@@ -167,7 +167,7 @@ Future<void> load_data() async {
     CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
 
     await Loc.where('name', isEqualTo: {
-      'busName': Hotel.hotelList[Hotel.selectedHotel].name,
+      'busName': Bus.busList[Bus.selectedBus].name,
       // BusDetailsBody.sc: null,
     }).limit(1).get().then((QuerySnapshot querySnapshot) async {
       if (querySnapshot.docs.isNotEmpty) {
@@ -309,7 +309,7 @@ Future<void> load_data() async {
             {
               // print(time);
               // print(ud);
-              BD.busName= Hotel.hotelList[Hotel.selectedHotel].name;
+              BD.busName= Bus.busList[Bus.selectedBus].name;
               BD.sch = time;
               BD.upDown =ud;
               Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
@@ -346,7 +346,7 @@ Future<void> load_data() async {
                 Container(
                   //padding:  EdgeInsets.only(bottom: 8),
                   child: Text(
-                    Hotel.hotelList[Hotel.selectedHotel].name,
+                    Bus.busList[Bus.selectedBus].name,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -361,7 +361,7 @@ Future<void> load_data() async {
                       color: Colors.green,
                     ),
                     Text(
-                      Hotel.hotelList[Hotel.selectedHotel].address,
+                      Bus.busList[Bus.selectedBus].address,
                       style: TextStyle(
                           color: Colors.grey[500], fontWeight: FontWeight.bold),
                     ),
@@ -443,7 +443,7 @@ Future<void> load_data() async {
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
                           image: NetworkImage(
-                              Hotel.hotelList[Hotel.selectedHotel].x),
+                              Bus.busList[Bus.selectedBus].x),
                           //"https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg"),
                           fit: BoxFit.cover,
                         ),
@@ -457,7 +457,7 @@ Future<void> load_data() async {
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
                           image: NetworkImage(
-                              Hotel.hotelList[Hotel.selectedHotel].y
+                              Bus.busList[Bus.selectedBus].y
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -471,7 +471,7 @@ Future<void> load_data() async {
                         borderRadius: BorderRadius.circular(8.0),
                         image: DecorationImage(
                           image: NetworkImage(
-                              Hotel.hotelList[Hotel.selectedHotel].z
+                              Bus.busList[Bus.selectedBus].z
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -549,7 +549,7 @@ Future<void> load_data() async {
                       onPressed: () {
                         AlertDialog alert = AlertDialog(
                           title: Text('Location:'),
-                          content: Text( Hotel.hotelList[Hotel.selectedHotel].location),
+                          content: Text( Bus.busList[Bus.selectedBus].location),
                         );
                         showDialog(
                           context: context,
