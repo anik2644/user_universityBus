@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:userapp/Test/Test1.dart';
 import 'package:userapp/Test/testAppBAr.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
+import '../StaticPart/FirebasestaticFunction.dart';
 import '../Taranga/TarangaBusBody.dart';
 import '../constants.dart';
 
@@ -35,13 +36,16 @@ class _TestState extends State<Test> {
         child: widget.aPpbar,
       ),// AppBar(title: Text("done"),),
       body:tst,
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        cnt++;
-        widget.aPpbar.count = cnt;
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        // cnt++;
+        // widget.aPpbar.count = cnt;
+        //
+        //
+        // // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> super.widget));
 
-
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> super.widget));
-
+       String docid= await FirebaseDataRead.getScheduleDocID("Taranga") as String;
+       print(docid);
+       FirebaseDataRead.updateScheduleArray(docid,"locShare");
       }
 
       ),

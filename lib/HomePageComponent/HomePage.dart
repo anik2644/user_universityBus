@@ -8,6 +8,7 @@ import 'package:userapp/HomePageComponent/HomePageBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
 import 'package:location/location.dart';
+import '../Taranga/InternetConnectionCHecker.dart';
 import '../constants.dart';
 import 'package:permission_handler/permission_handler.dart' as per;
 import 'package:flutter_offline/flutter_offline.dart';
@@ -31,7 +32,7 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     // TODO: implement initState
 
-    getConnectivity();
+   // getConnectivity();
     super.initState();
     setState(() {
 
@@ -47,7 +48,9 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.black,
         title: Center(child: Text("App Bar Text")),
       ),
-      body:Builder(
+      body:ConnectionChecker(new HomePageBody()),
+      /*
+      Builder(
           builder: (BuildContext context) {
             return OfflineBuilder(
               connectivityBuilder: (BuildContext context,
@@ -106,7 +109,7 @@ class _HomepageState extends State<Homepage> {
                 );
               },
               child: HomePageBody(),);}),
-      //HomePageBody(),//showDialogBox() ,
+      */
       drawer: Mydrawer(),
 
        floatingActionButton: FloatingActionButton(
