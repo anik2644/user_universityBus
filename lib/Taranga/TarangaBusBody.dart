@@ -343,72 +343,7 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
       setState(() {});
     }
   }
-/*
-Future<void> locShareFlag() async {
 
-    var chatDocId;
-    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
-
-    await Loc.where('name', isEqualTo: {
-      'busName': Hotel.hotelList[Hotel.selectedHotel].name,
-      // BusDetailsBody.sc: null,
-    }).limit(1).get().then((QuerySnapshot querySnapshot) async {
-      if (querySnapshot.docs.isNotEmpty) {
-        chatDocId = querySnapshot.docs.single.id;
-        // print(chatDocId);
-        //  print("Got it");
-      } else {
-        // print("Vacant Collection");
-        // await Loc.add({
-        //   'trip': {
-        //     BusDetailsBody.name: null,
-        //     BusDetailsBody.sc: null,
-        //
-        //   },
-        //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
-        // }).then((value) => {
-        //   chatDocId = value});
-        // //   print("Arrogant");
-      }
-    },
-    ).catchError((error) {});
-
-    // print(chatDocId);
-    //  print("object1");
-
-    var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(chatDocId).get();
-    if (docSnapshot.exists) {
-
-      // print(docSnapshot.data());
-      // GeoPoint position = docSnapshot.get('currentLocation');
-      // print(position.longitude.toString());
-      // print(docSnapshot.get('sch'));
-
-      //Uptrips = docSnapshot.get('sch');
-      List.from(docSnapshot.get('locShare')).forEach((element){
-        String data = element;
-
-        // print(element.toString());
-        //then add the data to the List<Offset>, now we have a type Offset
-        locShare.add(data);
-      });
-
-
-
-      //print(Uptrips);
-      setState(() {
-        //  llong= position.longitude.toDouble();
-        //  llat =position.latitude.toDouble();
-
-        //just= Uptrips[1];
-      });
-
-    }
-
-
-  }
-
-*/
 
   Future openDialouge(int index) => showDialog(
       context: context,

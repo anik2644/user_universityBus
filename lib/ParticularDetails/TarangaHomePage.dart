@@ -20,88 +20,10 @@ class TarangaHomePage extends StatefulWidget {
 class _TarangaHomePageState extends State<TarangaHomePage> {
   late PermissionStatus _status;
 
-//   void _updateStatus(PermissionStatus value) {
-//     setState(() {
-//       _status = value;
-//     });
-//   }
-//
-//   void _requestPerms() async {
-//     Map<Permission, PermissionStatus> statuses = await [
-//       Permission.locationWhenInUse,
-//       Permission.locationAlways
-//     ].request();
-//     //  Geolocator.openAppSettings();
-//     // openAppSettings();
-//     if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
-//       _updateStatus(PermissionStatus.limited);
-//       // openAppSettings();
-//     }
-//     // if (await Permission.location.isRestricted) {
-//     //   _updateStatus(PermissionStatus.granted);
-//     //   openAppSettings();
-//     // }
-//   }
-//
-//   runFirst() async {
-// //await PermissionHandler()
-// //        .checkPermissionStatus(PermissionGroup.locationWhenInUse)
-// //        .then(_updateStatus);
-//     /* PermissionHandle() deprecated in permission_handler: ^5.0.0+hotfix.3 */
-//     await Permission.locationWhenInUse.status.then(_updateStatus);
-//     //   Permission.location.isRestricted.then((value) => )
-//
-//     _requestPerms();
-//     if (_status == PermissionStatus.granted) {
-//       print("LOcationGaranter anik");
-//       // Navigator.push(
-//       //     context, MaterialPageRoute(builder: (context) => NextPage()));
-//     }
-//     // else if (_status == PermissionStatus.denied) {
-//     //   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-//     // }
-//     else {
-//       // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-//       Geolocator.openAppSettings();
-//     }
-//     // else if (_status == PermissionStatus.limited) {
-//     //   Navigator.push(
-//     //       context, MaterialPageRoute(builder: (context) => Homepage()));
-//     // }
-//     //SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-//     // }
-//     // else if (_status == PermissionStatus.restricted) {
-//     //   Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
-//     //  // SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-//     // }
-//     // else if (_status == PermissionStatus.permanentlyDenied) {
-//     //   Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
-//     //   //SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-//     // }
-//   }
-//
-//   Future<void> myfun() async {
-//     if (await Permission.location.serviceStatus.isEnabled) {
-//       print("Uses anik");
-//     } else if (await Permission.location.serviceStatus.isDisabled) {
-//       print(" not Uses anik");
-//     } else if (await Permission.location.serviceStatus.isNotApplicable) {
-//       print(" not applicable Uses anik");
-//     }
-//
-//     if (await Permission.locationAlways.serviceStatus.isEnabled) {
-//       print("service always");
-//     } else if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
-//       print("service on use");
-//     } else {
-//       print(" other cses");
-//     }
-//   }
 
   @override
   void initState() {
 
-   // getCurrentLocation().then((value) {});
     super.initState();
   }
 
@@ -141,17 +63,7 @@ class _TarangaHomePageState extends State<TarangaHomePage> {
                           ? /* Color(0xFF00EE44) */ null
                           : Color(0xFFEE4400),
                       child: connected
-                          ? /*
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "ONLINE",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        )
-                           */
+                          ?
                           null
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
