@@ -96,7 +96,14 @@ class _TarangaHomePageState extends State<TarangaHomePage> {
         }),
         floatingActionButton: AllStaticVariables.gps_share_flag == 1
             ? TarangaFloatingButton()
-            : null,
+            :FloatingActionButton(onPressed:(){
+              TarangaBusBody.Notice= "anik";
+              setState(() {
+
+              });
+        }
+
+        ),//null,
       ),
     );
   }

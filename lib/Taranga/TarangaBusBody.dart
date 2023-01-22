@@ -6,6 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:userapp/BusDetails/Location_view_templete.dart';
 import 'package:userapp/HomePageComponent/HomePage.dart';
 import 'package:userapp/HomePageComponent/HomePageBody.dart';
+import 'package:userapp/ParticularDetails/TarangaBusBody/NoticeScreen.dart';
+import 'package:userapp/ParticularDetails/TarangaBusBody/TitleScreen.dart';
 import 'package:userapp/Taranga/TarangaHomePage.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,18 +20,12 @@ class TarangaBusBody extends StatefulWidget {
   static String busName = "kn";
   static String sch = "8.00";
   static String upDown = "up";
+  static List<String> locShare = <String>['2', '1', '1', '1', '1', '0', '1', '1', '1'];
 
-  static List<String> locShare = <String>[
-    '2',
-    '1',
-    '1',
-    '1',
-    '1',
-    '0',
-    '1',
-    '1',
-    '1'
-  ];
+  static String Notice = "No Notice So Far";
+
+  TitleScreen tItlescreen= new TitleScreen();
+  NoticeScreen nOticescreen = NoticeScreen();
 
   @override
   State<TarangaBusBody> createState() => _TarangaBusBodyState();
@@ -41,23 +37,8 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
   var _noticeController = new TextEditingController();
   var _passCodeController = new TextEditingController();
   //_noticeController
-  List<String> Uptrips = <String>[
-    '0.0',
-    '7.02',
-    '8.0',
-    '7.72',
-    '60.0',
-    '74.02'
-  ];
-  List<String> Downtrips = <String>[
-    '0.0',
-    '85.02',
-    '7.02',
-    '8.0',
-    '7.72',
-    '60.0',
-    '74.02'
-  ];
+  List<String> Uptrips = <String>['0.0', '7.02', '8.0', '7.72', '60.0', '74.02'];
+  List<String> Downtrips = <String>['0.0', '85.02', '7.02', '8.0', '7.72', '60.0', '74.02'];
 
   String notic = "No notice so far";
 
@@ -167,184 +148,6 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
 //   }
 //
 
-  Future<Position> getCurrentLocation() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.always) {
-        print("always use");
-        await Geolocator.getCurrentPosition();
-        //return Future.error('Location while in use');
-      }
-
-      if (permission == LocationPermission.whileInUse) {
-        await Geolocator.openAppSettings();
-        await Geolocator.getCurrentPosition();
-        print("uing app");
-        // return Future.error('Location while in use');
-      }
-
-      if (permission == LocationPermission.denied) {
-        await Geolocator.openAppSettings();
-        await Geolocator.getCurrentPosition();
-        //return Future.error('Location permission denied');
-      }
-      if (permission == LocationPermission.deniedForever) {
-        await Geolocator.openAppSettings();
-        await Geolocator.getCurrentPosition();
-        //return Future.error('Location permanently denied');
-      }
-      // return await Geolocator.getCurrentPosition();
-      //return Future.error('Location service disabled');
-    } else if (serviceEnabled) {
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.always) {
-        print("always use");
-        await Geolocator.getCurrentPosition();
-        //return Future.error('Location while in use');
-      }
-
-      if (permission == LocationPermission.whileInUse) {
-        await Geolocator.openAppSettings();
-        await Geolocator.getCurrentPosition();
-        print("uing app");
-        // return Future.error('Location while in use');
-      }
-
-      if (permission == LocationPermission.denied) {
-        await Geolocator.openAppSettings();
-        await Geolocator.getCurrentPosition();
-        //return Future.error('Location permission denied');
-      }
-      if (permission == LocationPermission.deniedForever) {
-        await Geolocator.openAppSettings();
-        await Geolocator.getCurrentPosition();
-        //return Future.error('Location permanently denied');
-      }
-      //return await Geolocator.getCurrentPosition();
-      //return Future.error('Location service disabled');
-    }
-    //   LocationPermission permission = await Geolocator.checkPermission();
-    //   if(permission==LocationPermission.denied)
-    //   {
-    //     permission = await Geolocator.requestPermission();
-    //     if(permission== LocationPermission.denied)
-    //     {
-    //       return Future.error('Location permission denied');
-    //     }
-    //   }
-    //   if(permission== LocationPermission.deniedForever)
-    //   {
-    //     return Future.error('Location permanently denied');
-    //   }
-    return await Geolocator.getCurrentPosition();
-  }
-
-  Future<void> _getNotice() async {
-    CollectionReference schedule =
-        FirebaseFirestore.instance.collection('schedule');
-
-    await schedule
-        .where('name', isEqualTo: {
-          'busName': Bus.busList[Bus.selectedBus].name,
-          // currentUserId.toString(): null
-        })
-        .limit(1)
-        .get()
-        .then((QuerySnapshot querySnapshot) async {
-          if (querySnapshot.docs.isNotEmpty) {
-            //  rreaddata();
-            selectedBusId = querySnapshot.docs.single.id;
-            print(selectedBusId);
-            //print("dound man");
-          } else {}
-        });
-
-    await FirebaseFirestore.instance
-        .collection("schedule")
-        .doc(selectedBusId)
-        .snapshots()
-        .listen((userData) {
-      notic = userData.data()!['notice'];
-      // setState(() {
-      //   myId = userData.data()['uid'];
-      //   myUsername = userData.data()['name'];
-      //   myUrlAvatar = userData.data()['avatarurl'];
-      //
-      // });
-    });
-
-    // var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(selectedBusId).get();
-    // if (docSnapshot.exists) {
-    //   docSnapshot.data([notice]);
-    //   docSnapshot.data()?.forEach((key, value) {
-    //
-    //     print(value);
-    //   });
-
-    // //print(Uptrips);
-    // setState(() {
-    //   //  llong= position.longitude.toDouble();
-    //   //  llat =position.latitude.toDouble();
-    //
-    // });
-  }
-
-  Future<void> load_data() async {
-    // print(Hotel.hotelList[Hotel.selectedHotel].name);
-    Uptrips.clear();
-    Downtrips.clear();
-    TarangaBusBody.locShare.clear();
-
-    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
-
-    await Loc.where('name', isEqualTo: {
-      'busName': Bus.busList[Bus.selectedBus].name,
-      // BusDetailsBody.sc: null,
-    }).limit(1).get().then(
-      (QuerySnapshot querySnapshot) async {
-        if (querySnapshot.docs.isNotEmpty) {
-          AllStaticVariables.chatDocId = querySnapshot.docs.single.id;
-          // print(chatDocId);
-          //  print("Got it");
-        } else {
-          // print("Vacant Collection");
-          // await Loc.add({
-          //   'trip': {
-          //     BusDetailsBody.name: null,
-          //     BusDetailsBody.sc: null,
-          //
-          //   },
-          //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
-          // }).then((value) => {
-          //   chatDocId = value});
-          // //   print("Arrogant");
-        }
-      },
-    ).catchError((error) {});
-
-    var docSnapshot = await FirebaseFirestore.instance
-        .collection("schedule")
-        .doc(AllStaticVariables.chatDocId)
-        .get();
-    if (docSnapshot.exists) {
-      List.from(docSnapshot.get('up')).forEach((element) {
-        String data = element;
-        Uptrips.add(data);
-      });
-      List.from(docSnapshot.get('down')).forEach((element) {
-        String data = element;
-        Downtrips.add(data);
-      });
-      List.from(docSnapshot.get('locShare')).forEach((element) {
-        String data = element;
-        TarangaBusBody.locShare.add(data);
-      });
-      setState(() {});
-    }
-  }
-
-
   Future openDialouge(int index) => showDialog(
       context: context,
       builder: (BuildContext context) => Dialog(
@@ -395,7 +198,7 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                             }
                           }
                           if (flag == 1) {
-                            notic = _noticeController.text;
+                            TarangaBusBody.Notice = _noticeController.text;
                           }
                           //Notice set done
 
@@ -410,7 +213,7 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                               .doc(AllStaticVariables.chatDocId)
                               .update({
                             "locShare": TarangaBusBody.locShare,
-                            'notice': notic
+                            'notice': TarangaBusBody.Notice
                           });
 
                           //gpsshereflag
@@ -643,97 +446,6 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
     );
   }
 
-  Widget titleSection() {
-    return Container(
-      padding: EdgeInsets.only(right: 32, left: 32, top: 0, bottom: 0),
-      child: Row(
-        children: [
-          Expanded(
-            /*1*/
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*2*/
-                Container(
-                  //padding:  EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    Bus.busList[Bus.selectedBus].name,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.black),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      size: 20,
-                      color: Colors.green,
-                    ),
-                    Text(
-                      Bus.busList[Bus.selectedBus].address,
-                      style: TextStyle(
-                          color: Colors.grey[500], fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          /*   FavoriteButton(
-            isFavorite: false,
-            // iconDisabledColor: Colors.white,
-            valueChanged: (_isFavorite) {
-              bodyFavorite.favList.add(Myapp.selectedHotel);
-              print('Is Favorite : $_isFavorite');
-            },
-          ),
-
-        */
-          /*
-        IconButton(
-
-            icon: Icon(
-              Icons.favorite,
-              color: _selectedIndex != null && _selectedIndex == position
-                  ? Colors.redAccent
-                  : Colors.grey,
-            ),
-            onPressed: (){
-
-              _onSelected(position);
-            }
-        )
-
-         */
-        ],
-      ),
-    );
-  }
-
-  GestureDetector description() {
-    return GestureDetector(
-      child: Container(
-        width: double.infinity,
-        child: Card(
-          child: Wrap(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  notic //Hotel.hotelList[Hotel.selectedHotel].description
-                  /*'Hotel Description'*/
-                  ,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   String latt = "0.00";
   String lonn = "0.00";
 
@@ -800,7 +512,8 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                 ),
               ),
             ),
-            titleSection(),
+           // titleSection(),
+            widget.tItlescreen,
             const SizedBox(
               width: double.infinity,
               height: 5,
@@ -846,7 +559,8 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                 ],
               ),
             ),
-            description(),
+            //description(),
+            widget.nOticescreen,
             Column(
               //mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -934,4 +648,184 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
       ),
     );
   }
+
+
+  Future<Position> getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.always) {
+        print("always use");
+        await Geolocator.getCurrentPosition();
+        //return Future.error('Location while in use');
+      }
+
+      if (permission == LocationPermission.whileInUse) {
+        await Geolocator.openAppSettings();
+        await Geolocator.getCurrentPosition();
+        print("uing app");
+        // return Future.error('Location while in use');
+      }
+
+      if (permission == LocationPermission.denied) {
+        await Geolocator.openAppSettings();
+        await Geolocator.getCurrentPosition();
+        //return Future.error('Location permission denied');
+      }
+      if (permission == LocationPermission.deniedForever) {
+        await Geolocator.openAppSettings();
+        await Geolocator.getCurrentPosition();
+        //return Future.error('Location permanently denied');
+      }
+      // return await Geolocator.getCurrentPosition();
+      //return Future.error('Location service disabled');
+    } else if (serviceEnabled) {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.always) {
+        print("always use");
+        await Geolocator.getCurrentPosition();
+        //return Future.error('Location while in use');
+      }
+
+      if (permission == LocationPermission.whileInUse) {
+        await Geolocator.openAppSettings();
+        await Geolocator.getCurrentPosition();
+        print("uing app");
+        // return Future.error('Location while in use');
+      }
+
+      if (permission == LocationPermission.denied) {
+        await Geolocator.openAppSettings();
+        await Geolocator.getCurrentPosition();
+        //return Future.error('Location permission denied');
+      }
+      if (permission == LocationPermission.deniedForever) {
+        await Geolocator.openAppSettings();
+        await Geolocator.getCurrentPosition();
+        //return Future.error('Location permanently denied');
+      }
+      //return await Geolocator.getCurrentPosition();
+      //return Future.error('Location service disabled');
+    }
+    //   LocationPermission permission = await Geolocator.checkPermission();
+    //   if(permission==LocationPermission.denied)
+    //   {
+    //     permission = await Geolocator.requestPermission();
+    //     if(permission== LocationPermission.denied)
+    //     {
+    //       return Future.error('Location permission denied');
+    //     }
+    //   }
+    //   if(permission== LocationPermission.deniedForever)
+    //   {
+    //     return Future.error('Location permanently denied');
+    //   }
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future<void> _getNotice() async {
+    CollectionReference schedule =
+    FirebaseFirestore.instance.collection('schedule');
+
+    await schedule
+        .where('name', isEqualTo: {
+      'busName': Bus.busList[Bus.selectedBus].name,
+      // currentUserId.toString(): null
+    })
+        .limit(1)
+        .get()
+        .then((QuerySnapshot querySnapshot) async {
+      if (querySnapshot.docs.isNotEmpty) {
+        //  rreaddata();
+        selectedBusId = querySnapshot.docs.single.id;
+        print(selectedBusId);
+        //print("dound man");
+      } else {}
+    });
+
+    await FirebaseFirestore.instance
+        .collection("schedule")
+        .doc(selectedBusId)
+        .snapshots()
+        .listen((userData) {
+      notic = userData.data()!['notice'];
+      // setState(() {
+      //   myId = userData.data()['uid'];
+      //   myUsername = userData.data()['name'];
+      //   myUrlAvatar = userData.data()['avatarurl'];
+      //
+      // });
+    });
+
+    // var docSnapshot= await FirebaseFirestore.instance.collection("schedule").doc(selectedBusId).get();
+    // if (docSnapshot.exists) {
+    //   docSnapshot.data([notice]);
+    //   docSnapshot.data()?.forEach((key, value) {
+    //
+    //     print(value);
+    //   });
+
+    // //print(Uptrips);
+    // setState(() {
+    //   //  llong= position.longitude.toDouble();
+    //   //  llat =position.latitude.toDouble();
+    //
+    // });
+  }
+
+  Future<void> load_data() async {
+    // print(Hotel.hotelList[Hotel.selectedHotel].name);
+    Uptrips.clear();
+    Downtrips.clear();
+    TarangaBusBody.locShare.clear();
+
+    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
+
+    await Loc.where('name', isEqualTo: {
+      'busName': Bus.busList[Bus.selectedBus].name,
+      // BusDetailsBody.sc: null,
+    }).limit(1).get().then(
+          (QuerySnapshot querySnapshot) async {
+        if (querySnapshot.docs.isNotEmpty) {
+          AllStaticVariables.chatDocId = querySnapshot.docs.single.id;
+          // print(chatDocId);
+          //  print("Got it");
+        } else {
+          // print("Vacant Collection");
+          // await Loc.add({
+          //   'trip': {
+          //     BusDetailsBody.name: null,
+          //     BusDetailsBody.sc: null,
+          //
+          //   },
+          //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
+          // }).then((value) => {
+          //   chatDocId = value});
+          // //   print("Arrogant");
+        }
+      },
+    ).catchError((error) {});
+
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection("schedule")
+        .doc(AllStaticVariables.chatDocId)
+        .get();
+    if (docSnapshot.exists) {
+      List.from(docSnapshot.get('up')).forEach((element) {
+        String data = element;
+        Uptrips.add(data);
+      });
+      List.from(docSnapshot.get('down')).forEach((element) {
+        String data = element;
+        Downtrips.add(data);
+      });
+      List.from(docSnapshot.get('locShare')).forEach((element) {
+        String data = element;
+        TarangaBusBody.locShare.add(data);
+      });
+      setState(() {});
+    }
+  }
+
+
 }
