@@ -19,6 +19,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
   var selectedBusId;
 
 
+
 @override
   void initState() {
     // TODO: implement initState
@@ -76,7 +77,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
     });
 
     setState(() {
-
+          TarangaBusBody.Notice= TarangaBusBody.Notice;
+          //print("it is a nice day");
     });
   }
 
