@@ -6,9 +6,12 @@ import 'package:flutter/rendering.dart';
 import 'package:userapp/BusDetails/Location_view_templete.dart';
 import 'package:userapp/HomePageComponent/HomePage.dart';
 import 'package:userapp/HomePageComponent/HomePageBody.dart';
+import 'package:userapp/ParticularDetails/TarangaBusBody/ImageSlider.dart';
 import 'package:userapp/ParticularDetails/TarangaBusBody/NoticeScreen.dart';
 import 'package:userapp/ParticularDetails/TarangaBusBody/TitleScreen.dart';
+import 'package:userapp/ParticularDetails/TarangaBusBody/UpDownBuilder.dart';
 import 'package:userapp/Taranga/TarangaHomePage.dart';
+import '../ParticularDetails/TarangaBusBody/ButtonSection.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
@@ -26,6 +29,9 @@ class TarangaBusBody extends StatefulWidget {
 
   TitleScreen tItlescreen= new TitleScreen();
   NoticeScreen nOticescreen = NoticeScreen();
+  ImageSlider iMageslider = ImageSlider();
+  ButtonSection bUttonSection = ButtonSection();
+  UpDownBuilder uPdownbuilder = UpDownBuilder();
 
   @override
   State<TarangaBusBody> createState() => _TarangaBusBodyState();
@@ -456,111 +462,17 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
         height: MediaQuery.of(context).size.height * 1.3,
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 4,
-              width: double.infinity,
-              child: CarouselSlider(
-                items: [
-                  //1st Image of Slider
-                  Container(
-                    margin: EdgeInsets.all(6.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      image: DecorationImage(
-                        image: NetworkImage(Bus.busList[Bus.selectedBus].x),
-                        //"https://hotelseacrownbd.com/wp-content/uploads/2017/07/Presidential-Suite_Hotel-Sea-Crown_Cox-Bazar-14-570x400.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
 
-                  //2nd Image of Slider
-                  Container(
-                    margin: EdgeInsets.all(6.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      image: DecorationImage(
-                        image: NetworkImage(Bus.busList[Bus.selectedBus].y),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-
-                  //3rd Image of Slider
-                  Container(
-                    margin: EdgeInsets.all(6.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      image: DecorationImage(
-                        image: NetworkImage(Bus.busList[Bus.selectedBus].z),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
-
-                //Slider Container properties
-                options: CarouselOptions(
-                  height: 180.0,
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  aspectRatio: 16 / 9,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: true,
-                  autoPlayAnimationDuration: Duration(milliseconds: 600),
-                  viewportFraction: 0.8,
-                ),
-              ),
-            ),
-           // titleSection(),
+            widget.iMageslider,
             widget.tItlescreen,
             const SizedBox(
               width: double.infinity,
               height: 5,
             ),
-            Card(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      color: Colors.blue,
-                      Icons.call,
-                    ),
-                    onPressed: () async {
-                      //     FlutterPhoneDirectCaller.callNumber(hotel_number);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      color: Colors.blue,
-                      Icons.chat,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      color: Colors.blue,
-                      Icons.location_on,
-                    ),
-                    onPressed: () {
-                      AlertDialog alert = AlertDialog(
-                        title: Text('Location:'),
-                        content: Text(Bus.busList[Bus.selectedBus].location),
-                      );
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return alert;
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            //description(),
+            widget.bUttonSection,
             widget.nOticescreen,
+            widget.uPdownbuilder,
+            /*
             Column(
               //mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -575,13 +487,10 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
-                //  ListTile( Text("Up Trips:",style: TextStyle(fontSize: 20,),textAlign: TextAlign.left,)),
-                // SizedBox(height: 30,),
 
                 Container(
                   height: 100,
                   child: ListView.builder(
-                      //shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.only(left: 25, right: 25, top: 5),
                       itemCount: Uptrips.length,
@@ -592,31 +501,13 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                           )),
                 ),
 
-                // Container(
-                //   height: 100,
-                //   child: Expanded(
-                //     child: ListView.builder(
-                //       //shrinkWrap: true,
-                //         scrollDirection: Axis.horizontal,
-                //
-                //         padding: EdgeInsets.only(left: 25,right: 25,top: 5) ,
-                //         itemCount: Uptrips.length,
-                //         itemBuilder: (context, index) => ScheduleButton(index,
-                //           Uptrips[index],"up",
-                //         )),
-                //   ),
-                // ),
-                // SizedBox(height: 30,),
                 ListTile(
                   title: Text(
-                    "Down Trips:" //Hotel.hotelList[Hotel.selectedHotel].description
-                    /*'Hotel Description'*/
+                    "Down Trips:"
                     ,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
-                // Card(child: Text("Down Trips:",style: TextStyle(fontSize: 20),)),
-                // SizedBox(height: 30,),
 
                 Container(
                   height: 100,
@@ -628,21 +519,9 @@ class _TarangaBusBodyState extends State<TarangaBusBody> {
                       itemBuilder: (context, index) =>
                           ScheduleButton(index, Downtrips[index], "down")),
                 ),
-                // Container(
-                //   height: 100,
-                //   child: Expanded(
-                //     child: ListView.builder(
-                //       //shrinkWrap: true,
-                //         scrollDirection: Axis.horizontal,
-                //         itemCount: Downtrips.length,
-                //         padding: EdgeInsets.only(right: 25,left: 25,top: 10) ,
-                //         itemBuilder: (context, index) => ScheduleButton( index,
-                //             Downtrips[index],"down"
-                //         )),
-                //   ),
-                // ),
               ],
             ),
+            */
           ],
         ),
       ),
