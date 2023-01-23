@@ -6,6 +6,7 @@ import 'package:userapp/BusDetails/Location_view_templete.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
+import 'package:userapp/StaticPart/BusStaticVariables.dart';
 
 import '../../SecondaryHomePage/SecondaryBody.dart';
 import '../../Taranga/TarangaBusBody.dart';
@@ -14,7 +15,6 @@ import '../../constants.dart';
 
 
 class UpDownBuilder extends StatefulWidget {
-  const UpDownBuilder({Key? key}) : super(key: key);
 
   @override
   State<UpDownBuilder> createState() => _UpDownBuilderState();
@@ -42,22 +42,22 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
             style: OutlinedButton.styleFrom(
               side: ud == "down"
                   ? BorderSide(width: 5.0, color: Colors.black26)
-                  : TarangaBusBody.locShare[index] == "1"
+                  : BusStaticVariables.locShare[index] == "1"
                   ? BorderSide(width: 5.0, color: Colors.blue)
-                  : TarangaBusBody.locShare[index] == "0"
+                  : BusStaticVariables.locShare[index] == "0"
                   ? BorderSide(width: 5.0, color: Colors.green)
                   : BorderSide(width: 5.0, color: Colors.black26),
             ),
             onPressed: ud == "down"
                 ? null
-                : TarangaBusBody.locShare[index] == "0"
+                : BusStaticVariables.locShare[index] == "0"
                 ? () {
               // print(time);
               // print(ud);
-              TarangaBusBody.busName =
+              BusStaticVariables.busName =
               "Taranga"; //Hotel.hotelList[Hotel.selectedHotel].name;
-              TarangaBusBody.sch = time;
-              TarangaBusBody.upDown = ud;
+              BusStaticVariables.sch = time;
+              BusStaticVariables.upDown = ud;
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -65,7 +65,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
 
               setState(() {});
             }
-                : TarangaBusBody.locShare[index] == "1"
+                : BusStaticVariables.locShare[index] == "1"
                 ? () async {
               getCurrentLocation().then((value) {});
 
@@ -179,13 +179,13 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
                             }
                           }
                           if (flag == 1) {
-                            TarangaBusBody.Notice = _noticeController.text;
+                            BusStaticVariables.Notice = _noticeController.text;
                           }
                           //Notice set done
 
                           //  locShare.add("0");
                           //print(locShare.length);
-                          TarangaBusBody.locShare[index] = "0";
+                          BusStaticVariables.locShare[index] = "0";
                           AllStaticVariables.location_share_schedule_index =
                               index;
                           print(AllStaticVariables.chatDocId);
@@ -193,8 +193,8 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
                               .collection('schedule')
                               .doc(AllStaticVariables.chatDocId)
                               .update({
-                            "locShare": TarangaBusBody.locShare,
-                            'notice': TarangaBusBody.Notice
+                            "locShare": BusStaticVariables.locShare,
+                            'notice': BusStaticVariables.Notice
                           });
 
                           //gpsshereflag
@@ -289,22 +289,6 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
                                     });
                           }
 
-                          //hello
-
-                          /*
-                      else{
-                        loc.Location.instance.enableBackgroundMode(enable: false);
-                        AllStaticVariables.locationSubscription.cancel();
-                        //Location.instance.serviceEnabled().then((value) => null);
-                      }
-                       */
-
-                          //   getCurrentLocation().then((value) async {
-                          //   AllStaticVariables.mapshareflag=1;
-                          //   AllStaticVariables.gps_share_flag=1;
-                          //   AllStaticVariables.start_time = new DateTime.now();
-                          //   _liveLocation();
-                          // });
 
                           setState(() {});
                           AllStaticVariables.gps_share_flag = 1;
@@ -324,7 +308,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
   @override
   void initState() {
     // TODO: implement initState
-    load_data();
+   // load_data();
     super.initState();
   }
 
@@ -353,10 +337,10 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.only(left: 25, right: 25, top: 5),
-              itemCount: Uptrips.length,
+              itemCount: BusStaticVariables.Uptrips.length,
               itemBuilder: (context, index) => ScheduleButton(
                 index,
-                Uptrips[index],
+                BusStaticVariables.Uptrips[index],
                 "up",
               )),
         ),
@@ -374,10 +358,10 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
           child: ListView.builder(
             //shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: Downtrips.length,
+              itemCount: BusStaticVariables.Downtrips.length,
               padding: EdgeInsets.only(right: 25, left: 25, top: 10),
               itemBuilder: (context, index) =>
-                  ScheduleButton(index, Downtrips[index], "down")),
+                  ScheduleButton(index, BusStaticVariables.Downtrips[index], "down")),
         ),
       ],
     );
@@ -388,7 +372,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
     // print(Hotel.hotelList[Hotel.selectedHotel].name);
     Uptrips.clear();
     Downtrips.clear();
-    TarangaBusBody.locShare.clear();
+    BusStaticVariables.locShare.clear();
 
     CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
 
@@ -399,20 +383,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
           (QuerySnapshot querySnapshot) async {
         if (querySnapshot.docs.isNotEmpty) {
           AllStaticVariables.chatDocId = querySnapshot.docs.single.id;
-          // print(chatDocId);
-          //  print("Got it");
         } else {
-          // print("Vacant Collection");
-          // await Loc.add({
-          //   'trip': {
-          //     BusDetailsBody.name: null,
-          //     BusDetailsBody.sc: null,
-          //
-          //   },
-          //   'currentLocation' : GeoPoint(value.latitude,value.longitude),
-          // }).then((value) => {
-          //   chatDocId = value});
-          // //   print("Arrogant");
         }
       },
     ).catchError((error) {});
@@ -432,7 +403,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
       });
       List.from(docSnapshot.get('locShare')).forEach((element) {
         String data = element;
-        TarangaBusBody.locShare.add(data);
+        BusStaticVariables.locShare.add(data);
       });
       setState(() {});
     }

@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:userapp/StaticPart/Firebase/FirebaseUpdate.dart';
 import 'package:userapp/Test/Test1.dart';
 import 'package:userapp/Test/testAppBAr.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
-import '../StaticPart/Firebase/FirebaseRead.dart';
+import '../StaticPart/Firebase/FirebaseFetchId.dart';
 import '../Taranga/TarangaBusBody.dart';
 import '../constants.dart';
 
@@ -43,9 +44,9 @@ class _TestState extends State<Test> {
         //
         // // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> super.widget));
 
-       String docid= await FirebaseDataRead.getScheduleDocID("Taranga") as String;
+       String docid= await FirebaseFetchId.getScheduleDocID("Taranga") as String;
        print(docid);
-       FirebaseDataRead.updateScheduleArray(docid,"locShare");
+       FirebaseUpdate.updateScheduleArray(docid,"locShare");
       }
 
       ),

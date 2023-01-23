@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseDataRead{
+class FirebaseFetchId{
 
   static Future<String> getScheduleDocID(String busName) async
   {

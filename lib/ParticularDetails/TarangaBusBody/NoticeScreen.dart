@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/StaticPart/BusStaticVariables.dart';
 
 import '../../SecondaryHomePage/SecondaryBody.dart';
 import '../../Taranga/TarangaBusBody.dart';
@@ -23,7 +24,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
 @override
   void initState() {
     // TODO: implement initState
-    _getNotice();
+   // _getNotice();
     super.initState();
   }
   @override
@@ -36,7 +37,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  TarangaBusBody.Notice
+                  BusStaticVariables.Notice
                   ,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -73,11 +74,11 @@ class _NoticeScreenState extends State<NoticeScreen> {
         .doc(selectedBusId)
         .snapshots()
         .listen((userData) {
-      TarangaBusBody.Notice = userData.data()!['notice'];
+      BusStaticVariables.Notice = userData.data()!['notice'];
     });
 
     setState(() {
-          TarangaBusBody.Notice= TarangaBusBody.Notice;
+          BusStaticVariables.Notice= BusStaticVariables.Notice;
           //print("it is a nice day");
     });
   }

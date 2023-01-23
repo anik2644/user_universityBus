@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart' as loc;
 import 'package:userapp/Taranga/TarangaBusBody.dart';
+import '../StaticPart/BusStaticVariables.dart';
 import '../constants.dart';
 import 'TarangaHomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,11 +26,11 @@ class _TarangaFloatingButtonState extends State<TarangaFloatingButton> {
         // Geolocator.
         //AllStaticVariables.mapshareflag=0;
         AllStaticVariables.gps_share_flag=0;
-        TarangaBusBody.locShare[AllStaticVariables.location_share_schedule_index]="2";
+        BusStaticVariables.locShare[AllStaticVariables.location_share_schedule_index]="2";
         print(AllStaticVariables.chatDocId);
         await FirebaseFirestore.instance.collection('schedule').doc(AllStaticVariables.chatDocId)
             .update({
-          "locShare": TarangaBusBody.locShare
+          "locShare": BusStaticVariables.locShare
         });
 
         loc.Location.instance.enableBackgroundMode(enable: false);

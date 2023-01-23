@@ -9,6 +9,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 
+import '../StaticPart/BusStaticVariables.dart';
+
 
 class LocationView extends StatefulWidget {
 
@@ -193,9 +195,9 @@ class _LocationViewState extends State<LocationView> {
     CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
 
     await Loc.where('trip', isEqualTo: {
-      TarangaBusBody.busName: null,
-      TarangaBusBody.sch: null,
-      TarangaBusBody.upDown: null,
+      BusStaticVariables.busName: null,
+      BusStaticVariables.sch: null,
+      BusStaticVariables.upDown: null,
     }).limit(1).get().then((QuerySnapshot querySnapshot) async {
       if (querySnapshot.docs.isNotEmpty) {
         Selected_bus_location_id = querySnapshot.docs.single.id;

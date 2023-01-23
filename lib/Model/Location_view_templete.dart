@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../StaticPart/BusStaticVariables.dart';
 import '../Taranga/TarangaBusBody.dart';
 
 import 'package:flutter_map/flutter_map.dart';
@@ -130,9 +131,9 @@ class _LocationViewState extends State<LocationView> {
       CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
 
       await Loc.where('trip', isEqualTo: {
-        TarangaBusBody.busName: null,
-        TarangaBusBody.sch: null,
-        TarangaBusBody.upDown: null,
+        BusStaticVariables.busName: null,
+        BusStaticVariables.sch: null,
+        BusStaticVariables.upDown: null,
       }).limit(1).get().then((QuerySnapshot querySnapshot) async {
         if (querySnapshot.docs.isNotEmpty) {
           chatDocId = querySnapshot.docs.single.id;
@@ -143,19 +144,6 @@ class _LocationViewState extends State<LocationView> {
         } else {
           appbartext= "Location not shared";
           print("vacant");
-          /*await Loc.add({
-            'trip': {
-              BusDetailsBody.busName: null,
-              BusDetailsBody.sch: null,
-              BusDetailsBody.upDown: null,
-            },
-            'currentLocation' : GeoPoint(value.latitude,value.longitude),
-          }).then((value) => {
-            chatDocId = value.id,
-            print("my"),
-            print(chatDocId)
-          });*/
-          //   print("Arrogant");
         }
       },
       ).catchError((error) {});

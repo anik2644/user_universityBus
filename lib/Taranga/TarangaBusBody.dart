@@ -8,11 +8,6 @@ import '../ParticularDetails/TarangaBusBody/ButtonSection.dart';
 
 
 class TarangaBusBody extends StatefulWidget {
-  static String busName = "kn";
-  static String sch = "8.00";
-  static String upDown = "up";
-  static List<String> locShare = <String>['2', '1', '1', '1', '1', '0', '1', '1', '1'];
-  static String Notice = "No Notice So Far";
 
   TitleScreen tItlescreen= new TitleScreen();
   NoticeScreen nOticescreen = NoticeScreen();

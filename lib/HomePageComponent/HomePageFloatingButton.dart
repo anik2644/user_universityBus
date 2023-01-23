@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/StaticPart/Firebase/FirebaseUpdate.dart';
 
-import '../StaticPart/Firebase/FirebaseRead.dart';
+import '../StaticPart/Firebase/FirebaseFetchId.dart';
 
 class HomePageFloatingButtion extends StatefulWidget {
   const HomePageFloatingButtion({Key? key}) : super(key: key);
@@ -17,9 +18,9 @@ class _HomePageFloatingButtionState extends State<HomePageFloatingButtion> {
       onPressed: () async {
 
 
-        String docid= await FirebaseDataRead.getScheduleDocID("Taranga") as String;
+        String docid= await FirebaseFetchId.getScheduleDocID("Taranga") as String;
         //print(docid);
-        FirebaseDataRead.updateScheduleArray(docid,"locShare");
+        FirebaseUpdate.updateScheduleArray(docid,"locShare");
 
       },
       child: Icon(Icons.refresh,color: Colors.white,),

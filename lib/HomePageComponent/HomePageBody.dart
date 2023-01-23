@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userapp/StaticPart/StaticVariables.dart';
+import 'package:userapp/StaticPart/FirabaseStaticVariables.dart';
+import 'package:userapp/StaticPart/ModelStatic.dart';
 import 'package:userapp/Taranga/TarangaHomePage.dart';
 
-import '../StaticPart/Firebase/FirebaseRead.dart';
+import '../StaticPart/BusStaticVariables.dart';
+import '../StaticPart/Firebase/FirebaseFetchId.dart';
+import '../StaticPart/Firebase/FirebaseReadArray.dart';
 
 class HomePageBody extends StatefulWidget {
   @override
@@ -12,6 +15,30 @@ class HomePageBody extends StatefulWidget {
 
 class _HomePageBodyState extends State<HomePageBody> {
 
+  Future<void> Load() async {
+
+    FirebaseStaticVAriables.isLoading = false;
+    FirebaseStaticVAriables.selected_schedule_id = await FirebaseFetchId.getScheduleDocID(BusStaticVariables.busName) as String;
+
+    await FirebaseReadArray.loadNoticeAndTripswithFlag();
+    setState(() {
+      FirebaseStaticVAriables.isLoading = true;
+    });
+  }
+
+
+  Future openDialouge() => showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0)), //this right here
+          child: Container(
+              height: 200,
+              width: 200,
+              child: Center(child: CircularProgressIndicator()))
+      ));
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +46,21 @@ class _HomePageBodyState extends State<HomePageBody> {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async {
+              if(!FirebaseStaticVAriables.isLoading)
+                {
+                    openDialouge();
+                }
+              await ModelStatic.particularBusDataLoad();
+              setState(() {
+                if(FirebaseStaticVAriables.isLoading)
+                  {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => TarangaHomePage()));
+                  }
+              });
 
-              StaticVAriables.selected_schedule_id = FirebaseDataRead.getScheduleDocID("Taranga") as String;
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => TarangaHomePage()));
-              setState(() {});
+
             },
             child: Container(
               height: MediaQuery.of(context).size.height / 3,
