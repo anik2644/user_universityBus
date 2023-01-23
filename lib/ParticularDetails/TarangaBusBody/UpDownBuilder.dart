@@ -24,9 +24,6 @@ class UpDownBuilder extends StatefulWidget {
 class _UpDownBuilderState extends State<UpDownBuilder> {
 
 
-  List<String> Uptrips = <String>['0.0', '7.02', '8.0', '7.72', '60.0', '74.02'];
-  List<String> Downtrips = <String>['0.0', '85.02', '7.02', '8.0', '7.72', '60.0', '74.02'];
-
 
   var _noticeController = new TextEditingController();
   var _passCodeController = new TextEditingController();
@@ -300,7 +297,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
                           //  Navigator.pop(context);
                           print("already pressed");
                         },
-                        child: Text("Submit")),
+                        child: Text("ShareLocation")),
                   ],
                 ),
               ))));
@@ -369,47 +366,6 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
   }
 
 
-  Future<void> load_data() async {
-    // print(Hotel.hotelList[Hotel.selectedHotel].name);
-    Uptrips.clear();
-    Downtrips.clear();
-    BusStaticVariables.locShare.clear();
-
-    CollectionReference Loc = FirebaseFirestore.instance.collection('schedule');
-
-    await Loc.where('name', isEqualTo: {
-      'busName': Bus.busList[Bus.selectedBus].name,
-      // BusDetailsBody.sc: null,
-    }).limit(1).get().then(
-          (QuerySnapshot querySnapshot) async {
-        if (querySnapshot.docs.isNotEmpty) {
-          AllStaticVariables.chatDocId = querySnapshot.docs.single.id;
-        } else {
-        }
-      },
-    ).catchError((error) {});
-
-    var docSnapshot = await FirebaseFirestore.instance
-        .collection("schedule")
-        .doc(AllStaticVariables.chatDocId)
-        .get();
-    if (docSnapshot.exists) {
-      List.from(docSnapshot.get('up')).forEach((element) {
-        String data = element;
-        Uptrips.add(data);
-      });
-      List.from(docSnapshot.get('down')).forEach((element) {
-        String data = element;
-        Downtrips.add(data);
-      });
-      List.from(docSnapshot.get('locShare')).forEach((element) {
-        String data = element;
-        BusStaticVariables.locShare.add(data);
-      });
-      setState(() {});
-    }
-  }
-
   Future<Position> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -467,19 +423,6 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
       //return await Geolocator.getCurrentPosition();
       //return Future.error('Location service disabled');
     }
-    //   LocationPermission permission = await Geolocator.checkPermission();
-    //   if(permission==LocationPermission.denied)
-    //   {
-    //     permission = await Geolocator.requestPermission();
-    //     if(permission== LocationPermission.denied)
-    //     {
-    //       return Future.error('Location permission denied');
-    //     }
-    //   }
-    //   if(permission== LocationPermission.deniedForever)
-    //   {
-    //     return Future.error('Location permanently denied');
-    //   }
     return await Geolocator.getCurrentPosition();
   }
 
