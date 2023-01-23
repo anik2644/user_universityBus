@@ -3,10 +3,10 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:userapp/HomePageComponent/HomePageDrawer.dart';
-import 'package:userapp/HomePageComponent/HomePageBody.dart';
-import 'package:userapp/HomePageComponent/HomePageFloatingButton.dart';
-import 'package:userapp/HomePageComponent/HomrpageAppBar.dart';
+import 'package:userapp/HomePageComponent/HomepageScreen/HomePageDrawer.dart';
+import 'package:userapp/HomePageComponent/HomepageScreen/HomePageBody.dart';
+import 'package:userapp/HomePageComponent/HomepageScreen/HomePageFloatingButton.dart';
+import 'package:userapp/HomePageComponent/HomepageScreen/HomrpageAppBar.dart';
 import '../ListenActivity/InternetShowDialougeBox.dart';
 import '../Model/InternetConnectionCHecker.dart';
 import 'package:permission_handler/permission_handler.dart' as per;
@@ -17,7 +17,7 @@ class Homepage extends StatefulWidget {
 
   HomepageAppBar aPpbar = HomepageAppBar();
   HomePageFloatingButtion fLoatingButtton = HomePageFloatingButtion();
-  ConnectionChecker bOdy = ConnectionChecker(new HomePageBody());
+  ConnectionChecker bOdy = ConnectionChecker( HomePageBody());
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -25,11 +25,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
 
-
-  late per.PermissionStatus _status;
-  late StreamSubscription subscription;
-  bool isDeviceConnected = false;
-  bool isAlertSet = false;
 
   @override
   void initState() {
@@ -48,47 +43,6 @@ class _HomepageState extends State<Homepage> {
       ),
       body: widget.bOdy,
       floatingActionButton: widget.fLoatingButtton,
-
     );
   }
-
-/*
-  getConnectivity() {
-    return subscription = Connectivity().onConnectivityChanged.listen(
-            (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
-  }
-  showDialogBox() {
-    return showCupertinoDialog<String>(
-    context: context,
-    builder: (BuildContext context) => CupertinoAlertDialog(
-      title: const Text('No Connection'),
-      content: const Text('Please check your internet connectivity'),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () async {
-            Navigator.pop(context, 'Cancel');
-            setState(() => isAlertSet = false);
-            isDeviceConnected =
-            await InternetConnectionChecker().hasConnection;
-            if (!isDeviceConnected && isAlertSet == false) {
-              showDialogBox();
-              setState(() => isAlertSet = true);
-            }
-          },
-          child: const Text('OK'),
-        ),
-      ],
-    ),
-  );
-  }
-*/
-
-
 }

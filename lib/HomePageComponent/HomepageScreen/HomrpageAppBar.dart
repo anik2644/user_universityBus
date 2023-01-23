@@ -12,8 +12,15 @@ class _HomepageAppBarState extends State<HomepageAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       backgroundColor: Colors.black,
-      title: Center(child: Text("App Bar Text")),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("App Bar"),
+        ],
+      ),
     );
   }
 }
