@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:userapp/StaticPart/BusStaticVariables.dart';
+import 'package:userapp/StaticPart/ModelStatic.dart';
 
 import '../../SecondaryHomePage/SecondaryBody.dart';
 import '../../Taranga/TarangaBusBody.dart';
@@ -283,7 +284,7 @@ class _UpDownBuilderState extends State<UpDownBuilder> {
                                       setState(() {
                                         latt = currentLocation.latitude!.toString();
                                         lonn = currentLocation.longitude!.toString();
-                                        TarangaHomePage.appbar_text =
+                                        ModelStatic.particularAppbarText =
                                         "location: $latt ,,$lonn ";
                                       });
                                     });
