@@ -7,6 +7,7 @@ import 'package:userapp/HomePageComponent/HomePageDrawer.dart';
 import 'package:userapp/HomePageComponent/HomePageBody.dart';
 import 'package:userapp/HomePageComponent/HomePageFloatingButton.dart';
 import 'package:userapp/HomePageComponent/HomrpageAppBar.dart';
+import '../ListenActivity/InternetShowDialougeBox.dart';
 import '../Model/InternetConnectionCHecker.dart';
 import 'package:permission_handler/permission_handler.dart' as per;
 import 'package:flutter_offline/flutter_offline.dart';
@@ -32,7 +33,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
-    getConnectivity();
+    InternetShowDialougeBox.getConnectivity(context);
     super.initState();
   }
 
@@ -51,7 +52,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-
+/*
   getConnectivity() {
     return subscription = Connectivity().onConnectivityChanged.listen(
             (ConnectivityResult result) async {
@@ -87,7 +88,7 @@ class _HomepageState extends State<Homepage> {
     ),
   );
   }
-
+*/
 
 
 }
