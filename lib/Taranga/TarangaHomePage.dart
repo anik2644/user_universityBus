@@ -11,7 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'InternetConnectionCHecker.dart';
+import '../Model/InternetConnectionCHecker.dart';
 
 class TarangaHomePage extends StatefulWidget {
   static String appbar_text = Bus.busList[Bus.selectedBus].name;

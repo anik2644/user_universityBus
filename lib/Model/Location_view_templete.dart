@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'TarangaBusBody.dart';
+import '../Taranga/TarangaBusBody.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 //import "package:latlong/latlong.dart" as latLng;

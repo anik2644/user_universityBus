@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:userapp/Test/Test1.dart';
 import 'package:userapp/Test/testAppBAr.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
-import '../StaticPart/FirebasestaticFunction.dart';
+import '../StaticPart/Firebase/FirebaseRead.dart';
 import '../Taranga/TarangaBusBody.dart';
 import '../constants.dart';
 

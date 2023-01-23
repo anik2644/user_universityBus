@@ -10,7 +10,7 @@ import 'package:userapp/HomePageComponent/HomePageFloatingButton.dart';
 import 'package:userapp/HomePageComponent/HomrpageAppBar.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
 import 'package:location/location.dart';
-import '../Taranga/InternetConnectionCHecker.dart';
+import '../Model/InternetConnectionCHecker.dart';
 import '../constants.dart';
 import 'package:permission_handler/permission_handler.dart' as per;
 import 'package:flutter_offline/flutter_offline.dart';

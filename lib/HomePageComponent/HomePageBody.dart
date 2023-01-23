@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/StaticPart/StaticVariables.dart';
 import 'package:userapp/Taranga/TarangaHomePage.dart';
+
+import '../StaticPart/Firebase/FirebaseRead.dart';
 
 class HomePageBody extends StatefulWidget {
   @override
@@ -11,18 +14,14 @@ class _HomePageBodyState extends State<HomePageBody> {
 
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
           GestureDetector(
             onTap: () {
+
+              StaticVAriables.selected_schedule_id = FirebaseDataRead.getScheduleDocID("Taranga") as String;
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => TarangaHomePage()));
               setState(() {});
