@@ -5,17 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/HomePageComponent/HomePageDrawer.dart';
 import 'package:userapp/HomePageComponent/HomePageBody.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:userapp/HomePageComponent/HomePageFloatingButton.dart';
 import 'package:userapp/HomePageComponent/HomrpageAppBar.dart';
-import '../SecondaryHomePage/SecondaryBody.dart';
-import 'package:location/location.dart';
 import '../Model/InternetConnectionCHecker.dart';
-import '../StaticPart/BusStaticVariables.dart';
-import '../StaticPart/FirabaseStaticVariables.dart';
-import '../StaticPart/Firebase/FirebaseFetchId.dart';
-import '../StaticPart/Firebase/FirebaseReadArray.dart';
-import '../constants.dart';
 import 'package:permission_handler/permission_handler.dart' as per;
 import 'package:flutter_offline/flutter_offline.dart';
 

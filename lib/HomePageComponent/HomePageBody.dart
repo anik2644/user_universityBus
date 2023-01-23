@@ -1,43 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/Model/LoadIndicator.dart';
 import 'package:userapp/StaticPart/FirabaseStaticVariables.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 import 'package:userapp/Taranga/TarangaHomePage.dart';
 
-import '../StaticPart/BusStaticVariables.dart';
-import '../StaticPart/Firebase/FirebaseFetchId.dart';
-import '../StaticPart/Firebase/FirebaseReadArray.dart';
 
 class HomePageBody extends StatefulWidget {
+
+
   @override
   State<HomePageBody> createState() => _HomePageBodyState();
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
-
-  Future<void> Load() async {
-
-    FirebaseStaticVAriables.isLoading = false;
-    FirebaseStaticVAriables.selected_schedule_id = await FirebaseFetchId.getScheduleDocID(BusStaticVariables.busName) as String;
-
-    await FirebaseReadArray.loadNoticeAndTripswithFlag();
-    setState(() {
-      FirebaseStaticVAriables.isLoading = true;
-    });
-  }
-
-
-  Future openDialouge() => showDialog(
-      context: context,
-      builder: (BuildContext context) => Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0)), //this right here
-          child: Container(
-              height: 200,
-              width: 200,
-              child: Center(child: CircularProgressIndicator()))
-      ));
-
 
 
   @override
@@ -49,7 +25,9 @@ class _HomePageBodyState extends State<HomePageBody> {
             onTap: () async {
               if(!FirebaseStaticVAriables.isLoading)
                 {
-                    openDialouge();
+                  LoadingIndicator oPenDialouge = new LoadingIndicator(context);
+                   // openDialouge();
+                  oPenDialouge.openDialouge();
                 }
               await ModelStatic.particularBusDataLoad();
               setState(() {
