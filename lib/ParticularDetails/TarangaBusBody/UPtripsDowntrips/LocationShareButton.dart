@@ -64,7 +64,7 @@ class _LocationShareButtonState extends State<LocationShareButton> {
 
           ModelStatic.location_share_schedule_index = widget.index;
           ModelStatic.start_time = new DateTime.now();
-          
+
           //for enable location on
           bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
           if (!serviceEnabled) {await Geolocator.getCurrentPosition();}
@@ -92,7 +92,6 @@ class _LocationShareButtonState extends State<LocationShareButton> {
 
              });
           }
-
 
           _finalAction();
         },

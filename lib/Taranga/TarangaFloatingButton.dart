@@ -38,10 +38,6 @@ class _TarangaFloatingButtonState extends State<TarangaFloatingButton> {
         loc.Location.instance.enableBackgroundMode(enable: false);
         ModelStatic.locationSubscription.cancel();
 
-        setState(() {
-
-        });
-
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TarangaHomePage() ));
       },
 

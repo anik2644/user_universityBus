@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:userapp/StaticPart/FirabaseStaticVariables.dart';
 import 'package:userapp/Taranga/TarangaBusBody.dart';
 
 import 'package:flutter_map/flutter_map.dart';
@@ -65,7 +66,7 @@ class _LocationViewState extends State<LocationView> {
 
   @override
   void initState() {
-    _find_Selected_bus_location_id();
+   // _find_Selected_bus_location_id();
     super.initState();
   }
 
@@ -94,17 +95,7 @@ class _LocationViewState extends State<LocationView> {
                         color:
                         connected ?/* Color(0xFF00EE44) */ null : Color(0xFFEE4400),
                         child: connected
-                            ?/*
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "ONLINE",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        )
-                           */ null
+                            ? null
 
                             : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -136,36 +127,8 @@ class _LocationViewState extends State<LocationView> {
               child:  MyBody(),);}),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          //
-          // await FirebaseFirestore.instance.collection("test").get().then((value) => {
-          //   value.docs.forEach((result)
-          //   {
-          //     print(result.data());
-          //     GeoPoint position = result.get('anik');
-          //     print(position.longitude.toString());
-          //
-          //
-          //     setState(() {
-          //       llong= position.longitude.toDouble();
-          //       llat =position.latitude.toDouble();
-          //
-          //     });
-          //   }
-          //   )
-          // }
-          // );
-/*
-          var docSnapshot= await FirebaseFirestore.instance.collection("Location").doc("location").get();
-          if (docSnapshot.exists) {
 
-            print(docSnapshot.data());
-            GeoPoint position = docSnapshot.get('currentLocation');
-            print(position.longitude.toString());
-*/
-
-
-
-      var docSnapshot= await FirebaseFirestore.instance.collection("Location").doc(Selected_bus_location_id).get();
+      var docSnapshot= await FirebaseFirestore.instance.collection("Location").doc(FirebaseStaticVAriables.selected_location_id).get();
       if (docSnapshot.exists) {
 
         print(docSnapshot.data());
@@ -189,7 +152,7 @@ class _LocationViewState extends State<LocationView> {
       ),
     );
   }
-
+/*
   Future<void> _find_Selected_bus_location_id()
   async {
     CollectionReference Loc = FirebaseFirestore.instance.collection('Location');
@@ -214,4 +177,6 @@ class _LocationViewState extends State<LocationView> {
 
 
   }
+
+ */
 }
