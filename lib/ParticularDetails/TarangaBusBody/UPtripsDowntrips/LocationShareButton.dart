@@ -29,6 +29,7 @@ class _LocationShareButtonState extends State<LocationShareButton> {
     return TextButton(
         onPressed: () async {
 
+          ModelStatic.location_share_schedule_index = widget.index;
           bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
           if (!serviceEnabled) {
             await Geolocator.getCurrentPosition();
@@ -81,6 +82,8 @@ class _LocationShareButtonState extends State<LocationShareButton> {
             ModelStatic.locationSubscription =
                 location.onLocationChanged.listen(
                         (loc.LocationData currentLocation) async {
+
+
                       if (ModelStatic.gps_share_flag == 1) {
                         // print("with come");
                         int time_flag = 1;
@@ -101,11 +104,7 @@ class _LocationShareButtonState extends State<LocationShareButton> {
                           time_flag = 0;
                         }
 
-                        //
-                        // else if(current_time.minute>AllStaticVariables.start_time.minute)
-                        // {
-                        //   time_flag =0;
-                        // }
+
 
                         if (time_flag == 0) {
                           loc.Location.instance
@@ -116,14 +115,14 @@ class _LocationShareButtonState extends State<LocationShareButton> {
                           ModelStatic.gps_share_flag = 0;
                           print("app will restart");
                         }
-                       // print(ModelStatic.selectedtrip);
 
-                        setState(() {});
                       }
 
 
                       print(currentLocation.latitude!);
                       print(currentLocation.longitude!);
+
+
                       await FirebaseFirestore.instance
                           .collection("Location")
                           .doc(FirebaseStaticVAriables.selected_location_id)
@@ -134,16 +133,16 @@ class _LocationShareButtonState extends State<LocationShareButton> {
                       });
 
                       ModelStatic.gps_share_flag = 1;
-                      ModelStatic.start_time =
-                      new DateTime.now();
+                      ModelStatic.start_time = new DateTime.now();
 
 
-                      setState(() {
-                        latt = currentLocation.latitude!.toString();
-                        lonn = currentLocation.longitude!.toString();
-                        ModelStatic.particularAppbarText =
-                        "location: $latt ,,$lonn ";
-                      });
+                            latt = currentLocation.latitude!.toString();
+                            lonn = currentLocation.longitude!.toString();
+                            ModelStatic.particularAppbarText = "location: $latt ,,$lonn ";
+
+
+
+
                     });
           }
 

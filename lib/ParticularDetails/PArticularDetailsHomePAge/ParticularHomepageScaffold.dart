@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:userapp/StaticPart/ModelStatic.dart';
 import 'package:userapp/Taranga/TarangaAppBar.dart';
 import 'package:userapp/Taranga/TarangaBusBody.dart';
 import 'package:userapp/Taranga/TarangaFloatingButton.dart';
@@ -25,7 +26,7 @@ class _ParticularHomepageScaffoldState extends State<ParticularHomepageScaffold>
       backgroundColor: Colors.white,
       appBar: widget.aPbar,
       body: widget.bOdy,
-      floatingActionButton: AllStaticVariables.gps_share_flag == 1 ? TarangaFloatingButton() : null,
+      floatingActionButton: ModelStatic.gps_share_flag == 1 ? TarangaFloatingButton() : null,
     );
   }
 }

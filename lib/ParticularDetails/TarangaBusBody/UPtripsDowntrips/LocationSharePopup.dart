@@ -6,7 +6,9 @@ import 'LocationShareButton.dart';
 class LocationSharePopup{
   BuildContext context;
   int index;
-      LocationSharePopup(this.context,this.index);
+      LocationSharePopup(this.context,this.index){
+        print("hey dear");
+      }
 
 
   var _noticeController = new TextEditingController();
@@ -16,8 +18,7 @@ class LocationSharePopup{
   Future openDialouge(int index) => showDialog(
       context: context,
       builder: (BuildContext context) => Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0)), //this right here
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
               height: 200,
               child: Padding(
@@ -32,9 +33,7 @@ class LocationSharePopup{
                       ),
                       controller: _noticeController,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10,),
                     TextField(
                       controller: _passCodeController,
                       decoration: InputDecoration(

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart' as loc;
+import 'package:userapp/StaticPart/FirabaseStaticVariables.dart';
+import 'package:userapp/StaticPart/ModelStatic.dart';
 import 'package:userapp/Taranga/TarangaBusBody.dart';
 import '../StaticPart/BusStaticVariables.dart';
 import '../constants.dart';
@@ -23,19 +25,22 @@ class _TarangaFloatingButtonState extends State<TarangaFloatingButton> {
       label: Text('Stop Share'),
       backgroundColor: Colors.red,
       onPressed: () async {
-        // Geolocator.
-        //AllStaticVariables.mapshareflag=0;
-        AllStaticVariables.gps_share_flag=0;
-        BusStaticVariables.locShare[AllStaticVariables.location_share_schedule_index]="2";
-        print(AllStaticVariables.chatDocId);
-        await FirebaseFirestore.instance.collection('schedule').doc(AllStaticVariables.chatDocId)
+
+        ModelStatic.gps_share_flag=0;
+        ModelStatic.particularAppbarText = BusStaticVariables.busName;
+        BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]="2";
+        //print(AllStaticVariables.chatDocId);
+        await FirebaseFirestore.instance.collection('schedule').doc(FirebaseStaticVAriables.selected_schedule_id)
             .update({
           "locShare": BusStaticVariables.locShare
         });
 
         loc.Location.instance.enableBackgroundMode(enable: false);
-        AllStaticVariables.locationSubscription.cancel();
-        //  FlutterBackgroundService().sendData({'action': 'stopService'});
+        ModelStatic.locationSubscription.cancel();
+
+        setState(() {
+
+        });
 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TarangaHomePage() ));
       },

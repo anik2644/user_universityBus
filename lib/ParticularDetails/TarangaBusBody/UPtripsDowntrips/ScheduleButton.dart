@@ -4,6 +4,7 @@ import 'package:userapp/ParticularDetails/TarangaBusBody/UPtripsDowntrips/Locati
 import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:userapp/StaticPart/FirabaseStaticVariables.dart';
+import 'package:userapp/StaticPart/Firebase/FirebaseFetchId.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
@@ -85,88 +86,60 @@ class _ScheduleButtonState extends State<ScheduleButton> {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        side: widget.ud == "down"
-            ? BorderSide(width: 5.0, color: Colors.black26)
-            : BusStaticVariables.locShare[widget.index] == "1"
-            ? BorderSide(width: 5.0, color: Colors.blue)
-            : BusStaticVariables.locShare[widget.index] == "0"
-            ? BorderSide(width: 5.0, color: Colors.green)
-            : BorderSide(width: 5.0, color: Colors.black26),
-      ),
-      onPressed: widget.ud == "down"
-          ? null
-          : BusStaticVariables.locShare[widget.index] == "0"
-          ? () {
-        // print(time);
-        // print(ud);
-        BusStaticVariables.busName =
-        "Taranga"; //Hotel.hotelList[Hotel.selectedHotel].name;
-        BusStaticVariables.sch = widget.time;
-        BusStaticVariables.upDown = widget.ud;
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LocationView()));
+    return Container(
 
-        setState(() {});
-      }
-          : BusStaticVariables.locShare[widget.index] == "1"
-          ? () async {
-        getCurrentLocation().then((value) {});
+      child: Row(
+        children: [
+          SizedBox(
+            width: 6,
+          ),
+            OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: widget.ud == "down"
+              ? BorderSide(width: 5.0, color: Colors.black26)
+              : BusStaticVariables.locShare[widget.index] == "1"
+              ? BorderSide(width: 5.0, color: Colors.blue)
+              : BusStaticVariables.locShare[widget.index] == "0"
+              ? BorderSide(width: 5.0, color: Colors.green)
+              : BorderSide(width: 5.0, color: Colors.black26),
+        ),
+        onPressed: widget.ud == "down" ? null
+            : BusStaticVariables.locShare[widget.index] == "0" ? () async {
+          BusStaticVariables.busName = "Taranga";
+          BusStaticVariables.sch = widget.time;
+          BusStaticVariables.upDown = widget.ud;
 
-        BusStaticVariables.upDown = widget.ud;
-        BusStaticVariables.sch = widget.time;
-
-        if (ModelStatic.gps_share_flag == 0) {
-          print("Hey I Have Come Here");
-          CollectionReference Loc = FirebaseFirestore
-              .instance
-              .collection('Location');
-          await Loc.where('trip', isEqualTo: {
-            BusStaticVariables.busName: null,
-            BusStaticVariables.sch: null,
-            BusStaticVariables.upDown: null,
-          }).limit(1).get().then(
-                (QuerySnapshot querySnapshot) async {
-              if (querySnapshot.docs.isNotEmpty) {
-                // chatDocId = querySnapshot.docs.single.id;
-               FirebaseStaticVAriables.selected_location_id =
-                    querySnapshot.docs.single.id;
-                // print("object");
-                print(FirebaseStaticVAriables.selected_location_id);
-                print("Got it");
-              } else {
-                print("vacant");
-                await Loc.add({
-                  'trip': {
-                    BusStaticVariables.busName: null,
-                    BusStaticVariables.sch: null,
-                    BusStaticVariables.upDown: null,
-                  },
-                  'currentLocation': GeoPoint(34.4, 90.4),
-                }).then((value) => {
-                  //chatDocId = value.id,
-                  FirebaseStaticVAriables.selected_location_id =
-                      value.id,
-                  print("my"),
-                 // print(BusStaticVariables.selectedtrip)
-                });
-                //   print("Arrogant");
-              }
-            },
-          ).catchError((error) {});
+          await FirebaseFetchId.getLocationDocID();
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
         }
+            : BusStaticVariables.locShare[widget.index] == "1"
+            ? () async {
+          BusStaticVariables.busName = "Taranga";
+          BusStaticVariables.sch = widget.time;
+          BusStaticVariables.upDown = widget.ud;
 
+          getCurrentLocation().then((value) {});
 
-        LocationSharePopup(context,widget.index);
-      }
-          : null,
-      child: Text(
-        widget.time,
-        style: TextStyle(fontSize: 25, color: Colors.blue),
+          if (ModelStatic.gps_share_flag == 0)
+            {
+              FirebaseFetchId.getLocationDocID();
+             LocationSharePopup popup =LocationSharePopup(context,widget.index);
+             popup.openDialouge(widget.index);
+            }
+
+        }
+            : null,
+        child: Text(
+          widget.time,
+          style: TextStyle(fontSize: 25, color: Colors.blue),
+        ),
+      ),
+          SizedBox(
+            width: 6,
+          ),
+        ],
       ),
     );
+
   }
 }
