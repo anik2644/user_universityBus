@@ -83,8 +83,47 @@ class _ScheduleButtonState extends State<ScheduleButton> {
     return await Geolocator.getCurrentPosition();
   }
 
+  void _locationVIew () async {
+    BusStaticVariables.busName = "Taranga";
+    BusStaticVariables.sch = widget.time;
+    BusStaticVariables.upDown = widget.ud;
 
-  @override
+    await FirebaseFetchId.getLocationDocID();
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
+  }
+
+  void _shareLocation () async {
+  BusStaticVariables.busName = "Taranga";
+  BusStaticVariables.sch = widget.time;
+  BusStaticVariables.upDown = widget.ud;
+
+  getCurrentLocation().then((value) {});
+
+  if (ModelStatic.gps_share_flag == 0)
+  {
+  FirebaseFetchId.getLocationDocID();
+  LocationSharePopup popup =LocationSharePopup(context,widget.index);
+  popup.openDialouge(widget.index);
+  }
+
+}
+
+
+ButtonStyle Style()
+{
+  return OutlinedButton.styleFrom(
+    side: widget.ud == "down"
+        ? BorderSide(width: 5.0, color: Colors.black26)
+        : BusStaticVariables.locShare[widget.index] == "1"
+        ? BorderSide(width: 5.0, color: Colors.blue)
+        : BusStaticVariables.locShare[widget.index] == "0"
+        ? BorderSide(width: 5.0, color: Colors.green)
+        : BorderSide(width: 5.0, color: Colors.black26),
+  );
+}
+
+
+@override
   Widget build(BuildContext context) {
     return Container(
 
@@ -94,40 +133,12 @@ class _ScheduleButtonState extends State<ScheduleButton> {
             width: 6,
           ),
             OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          side: widget.ud == "down"
-              ? BorderSide(width: 5.0, color: Colors.black26)
-              : BusStaticVariables.locShare[widget.index] == "1"
-              ? BorderSide(width: 5.0, color: Colors.blue)
-              : BusStaticVariables.locShare[widget.index] == "0"
-              ? BorderSide(width: 5.0, color: Colors.green)
-              : BorderSide(width: 5.0, color: Colors.black26),
-        ),
+        style: Style(),
         onPressed: widget.ud == "down" ? null
-            : BusStaticVariables.locShare[widget.index] == "0" ? () async {
-          BusStaticVariables.busName = "Taranga";
-          BusStaticVariables.sch = widget.time;
-          BusStaticVariables.upDown = widget.ud;
-
-          await FirebaseFetchId.getLocationDocID();
-          Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
-        }
+            : BusStaticVariables.locShare[widget.index] == "0"
+            ? (){_locationVIew ();}
             : BusStaticVariables.locShare[widget.index] == "1"
-            ? () async {
-          BusStaticVariables.busName = "Taranga";
-          BusStaticVariables.sch = widget.time;
-          BusStaticVariables.upDown = widget.ud;
-
-          getCurrentLocation().then((value) {});
-
-          if (ModelStatic.gps_share_flag == 0)
-            {
-              FirebaseFetchId.getLocationDocID();
-             LocationSharePopup popup =LocationSharePopup(context,widget.index);
-             popup.openDialouge(widget.index);
-            }
-
-        }
+            ? (){_shareLocation ();}
             : null,
         child: Text(
           widget.time,
@@ -142,4 +153,7 @@ class _ScheduleButtonState extends State<ScheduleButton> {
     );
 
   }
+
+
+
 }

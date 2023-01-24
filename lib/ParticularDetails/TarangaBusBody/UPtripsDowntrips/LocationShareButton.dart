@@ -147,7 +147,6 @@ class _LocationShareButtonState extends State<LocationShareButton> {
           }
 
 
-          setState(() {});
           ModelStatic.gps_share_flag = 1;
           Navigator.pushReplacement(
               context,
