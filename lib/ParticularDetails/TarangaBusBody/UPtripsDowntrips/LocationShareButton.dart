@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:userapp/StaticPart/FirabaseStaticVariables.dart';
 import 'package:userapp/StaticPart/Firebase/FirebaseLocationWrite.dart';
+import 'package:userapp/StaticPart/Firebase/FirebaseReadArray.dart';
 import 'package:userapp/StaticPart/Firebase/FirebaseUpdate.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 
@@ -63,35 +64,51 @@ class _LocationShareButtonState extends State<LocationShareButton> {
         onPressed: () async {
 
           ModelStatic.location_share_schedule_index = widget.index;
-          ModelStatic.start_time = new DateTime.now();
 
-          //for enable location on
-          bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-          if (!serviceEnabled) {await Geolocator.getCurrentPosition();}
-
-          _updateNotice();
-          _updateLocshareFlag();
-          FirebaseUpdate.updateLocshareAndNotice();
+          FirebaseReadArray.loadLocShreFlag();
+          if(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]==1)
+            {
 
 
-          if (ModelStatic.gps_share_flag == 0) {
+              ModelStatic.start_time = new DateTime.now();
+
+              //for enable location on
+              bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+              if (!serviceEnabled) {await Geolocator.getCurrentPosition();}
+
+              _updateNotice();
+              _updateLocshareFlag();
+              FirebaseUpdate.updateLocshareAndNotice();
 
 
-            loc.Location location = new loc.Location();
-            location.enableBackgroundMode(enable: true);
-            await location.changeSettings(accuracy: loc.LocationAccuracy.high, distanceFilter: 1);
+              if (ModelStatic.gps_share_flag == 0) {
 
-            ModelStatic.locationSubscription = location.onLocationChanged.listen(
+
+                loc.Location location = new loc.Location();
+                location.enableBackgroundMode(enable: true);
+                await location.changeSettings(accuracy: loc.LocationAccuracy.high, distanceFilter: 1);
+
+                ModelStatic.locationSubscription = location.onLocationChanged.listen(
                         (loc.LocationData currentLocation) async {
 
-                    timeRestartFlag = _timeTrack();
-                    _timeFlagAction(timeRestartFlag);
+                      timeRestartFlag = _timeTrack();
+                      _timeFlagAction(timeRestartFlag);
 
-                    FirebaseLocationWrite.locationWrite( currentLocation.latitude!, currentLocation.longitude!);
-                    _updateAppBar(currentLocation.latitude!.toString(), currentLocation.longitude!.toString());
+                      FirebaseLocationWrite.locationWrite( currentLocation.latitude!, currentLocation.longitude!);
+                      _updateAppBar(currentLocation.latitude!.toString(), currentLocation.longitude!.toString());
 
-             });
-          }
+                    });
+                ModelStatic.gps_share_flag = 1;
+              }
+
+
+
+            }
+          else
+            {
+
+            }
+
 
           _finalAction();
         },
@@ -101,7 +118,7 @@ class _LocationShareButtonState extends State<LocationShareButton> {
   void _finalAction()
   {
 
-    ModelStatic.gps_share_flag = 1;
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

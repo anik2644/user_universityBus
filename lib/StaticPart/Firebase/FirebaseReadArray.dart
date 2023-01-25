@@ -35,4 +35,23 @@ class FirebaseReadArray{
 
   }
 
+
+  static Future<void> loadLocShreFlag()  async {
+
+    BusStaticVariables.locShare.clear();
+
+
+    var docSnapshot = await FirebaseFirestore.instance.collection("schedule")
+        .doc(FirebaseStaticVAriables.selected_schedule_id).get();
+
+    if (docSnapshot.exists) {
+      List.from(docSnapshot.get('locShare')).forEach((element) {
+        String data = element;
+        BusStaticVariables.locShare.add(data);
+      });
+
+    }
+
+  }
+
 }

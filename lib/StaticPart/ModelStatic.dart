@@ -13,6 +13,8 @@ class ModelStatic{
   static late StreamSubscription<LocationData> locationSubscription;
   static DateTime start_time = new DateTime.now();
 
+  static int locSharePopupFlag = 0;
+
 
 
    static Future<void> particularBusDataLoad() async {
