@@ -20,7 +20,7 @@ class _ButtonSectionState extends State<ButtonSection> {
           IconButton(
             icon: Icon(
               color: Colors.blue,
-              Icons.call,
+              Icons.person,
             ),
             onPressed: () async {
               //     FlutterPhoneDirectCaller.callNumber(hotel_number);

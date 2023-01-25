@@ -64,6 +64,7 @@ dev_dependencies:
   google_fonts: ^2.0.0
   google_sign_in: ^5.4.1
   firebase_storage: ^11.0.2
+  favorite_button: ^0.0.4
 
 
 dependency_overrides:

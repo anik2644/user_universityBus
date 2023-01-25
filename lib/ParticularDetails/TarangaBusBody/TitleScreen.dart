@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:favorite_button/favorite_button.dart';
 import '../../SecondaryHomePage/SecondaryBody.dart';
 
 class TitleScreen extends StatefulWidget {
@@ -50,16 +50,15 @@ class _TitleScreenState extends State<TitleScreen> {
               ],
             ),
           ),
-          /*   FavoriteButton(
+             FavoriteButton(
             isFavorite: false,
             // iconDisabledColor: Colors.white,
             valueChanged: (_isFavorite) {
-              bodyFavorite.favList.add(Myapp.selectedHotel);
               print('Is Favorite : $_isFavorite');
             },
           ),
 
-        */
+
           /*
         IconButton(
 
