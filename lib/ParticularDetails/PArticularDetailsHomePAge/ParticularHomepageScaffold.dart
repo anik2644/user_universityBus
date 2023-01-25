@@ -22,11 +22,16 @@ class _ParticularHomepageScaffoldState extends State<ParticularHomepageScaffold>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: widget.aPbar,
-      body: widget.bOdy,
-      floatingActionButton: ModelStatic.gps_share_flag == 1 ? TarangaFloatingButton() : null,
+    return WillPopScope(
+      onWillPop: () async{
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: widget.aPbar,
+        body: widget.bOdy,
+        floatingActionButton: ModelStatic.gps_share_flag == 1 ? TarangaFloatingButton() : null,
+      ),
     );
   }
 }

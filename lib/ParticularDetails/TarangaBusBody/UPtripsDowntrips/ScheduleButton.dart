@@ -93,6 +93,7 @@ class _ScheduleButtonState extends State<ScheduleButton> {
   }
 
   void _shareLocation () async {
+    ModelStatic.locSharePopupFlag=1;
   BusStaticVariables.busName = "Taranga";
   BusStaticVariables.sch = widget.time;
   BusStaticVariables.upDown = widget.ud;
@@ -104,6 +105,7 @@ class _ScheduleButtonState extends State<ScheduleButton> {
   FirebaseFetchId.getLocationDocID();
   LocationSharePopup popup =LocationSharePopup(context,widget.index);
   popup.openDialouge(widget.index);
+
   }
 
 }

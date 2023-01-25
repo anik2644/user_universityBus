@@ -11,6 +11,7 @@ import 'package:userapp/StaticPart/ModelStatic.dart';
 
 import '../../../StaticPart/BusStaticVariables.dart';
 import '../../../Taranga/TarangaHomePage.dart';
+import 'LocationSharePopup.dart';
 
 class LocationShareButton extends StatefulWidget {
 
@@ -57,6 +58,61 @@ class _LocationShareButtonState extends State<LocationShareButton> {
   }
 
 
+  Future<void> LocationtoBeSharedOrNot() async {
+
+
+    if(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]=="1")
+    {
+
+
+      print("Locstion to be shared");
+
+      ModelStatic.start_time = new DateTime.now();
+
+      //for enable location on
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {await Geolocator.getCurrentPosition();}
+
+      _updateNotice();
+      _updateLocshareFlag();
+      FirebaseUpdate.updateLocshareAndNotice();
+
+
+      if (ModelStatic.gps_share_flag == 0) {
+
+        ModelStatic.gps_share_flag = 1;
+
+        loc.Location location = new loc.Location();
+        location.enableBackgroundMode(enable: true);
+        await location.changeSettings(accuracy: loc.LocationAccuracy.high, distanceFilter: 1);
+
+        ModelStatic.locationSubscription = location.onLocationChanged.listen(
+                (loc.LocationData currentLocation) async {
+
+              timeRestartFlag = _timeTrack();
+              _timeFlagAction(timeRestartFlag);
+
+              FirebaseLocationWrite.locationWrite( currentLocation.latitude!, currentLocation.longitude!);
+              _updateAppBar(currentLocation.latitude!.toString(), currentLocation.longitude!.toString());
+
+            });
+
+      }
+
+
+
+    }
+    else
+    {
+      print(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]);
+      ModelStatic.locSharePopupFlag=0;
+      print("Not SHared");
+      //Navigator.pop(context);
+      // LocationSharePopup popup =LocationSharePopup(context,widget.index);
+      // popup.openDialouge(widget.index);
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,53 +120,14 @@ class _LocationShareButtonState extends State<LocationShareButton> {
         onPressed: () async {
 
           ModelStatic.location_share_schedule_index = widget.index;
+          await FirebaseReadArray.loadLocShreFlag();
+          await LocationtoBeSharedOrNot();
 
-          FirebaseReadArray.loadLocShreFlag();
-          if(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]==1)
-            {
-
-
-              ModelStatic.start_time = new DateTime.now();
-
-              //for enable location on
-              bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-              if (!serviceEnabled) {await Geolocator.getCurrentPosition();}
-
-              _updateNotice();
-              _updateLocshareFlag();
-              FirebaseUpdate.updateLocshareAndNotice();
+          setState(() {
+            _finalAction();
+          });
 
 
-              if (ModelStatic.gps_share_flag == 0) {
-
-
-                loc.Location location = new loc.Location();
-                location.enableBackgroundMode(enable: true);
-                await location.changeSettings(accuracy: loc.LocationAccuracy.high, distanceFilter: 1);
-
-                ModelStatic.locationSubscription = location.onLocationChanged.listen(
-                        (loc.LocationData currentLocation) async {
-
-                      timeRestartFlag = _timeTrack();
-                      _timeFlagAction(timeRestartFlag);
-
-                      FirebaseLocationWrite.locationWrite( currentLocation.latitude!, currentLocation.longitude!);
-                      _updateAppBar(currentLocation.latitude!.toString(), currentLocation.longitude!.toString());
-
-                    });
-                ModelStatic.gps_share_flag = 1;
-              }
-
-
-
-            }
-          else
-            {
-
-            }
-
-
-          _finalAction();
         },
         child: Text("ShareLocation"));
   }
@@ -118,13 +135,13 @@ class _LocationShareButtonState extends State<LocationShareButton> {
   void _finalAction()
   {
 
-
+    //ModelStatic.gps_share_flag = 1;
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => TarangaHomePage()));
     //  Navigator.pop(context);
-    print("Location Share Done");
+   // print("Location Share Done");
   }
 
   void _updateAppBar(String lat,String lon)

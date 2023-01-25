@@ -18,6 +18,8 @@ class _StartBUttonState extends State<StartBUtton> {
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: () async {
+
+        FirebaseStaticVAriables.isLoading= false;
         if(!FirebaseStaticVAriables.isLoading)
         {
           LoadingIndicator oPenDialouge = new LoadingIndicator(context);
@@ -27,7 +29,8 @@ class _StartBUttonState extends State<StartBUtton> {
         setState(() {
           if(FirebaseStaticVAriables.isLoading)
           {
-            Navigator.push(context,
+           // FirebaseStaticVAriables.isLoading=!FirebaseStaticVAriables.isLoading;
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => TarangaHomePage()));
           }
         });
