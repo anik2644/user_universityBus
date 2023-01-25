@@ -38,18 +38,39 @@ class _MydrawerState extends State<Mydrawer> {
                           Container(child: Text(' ')),
                           Container(child: Text(' ')),
                           Container(),
-
                           Center(
                             child: OutlinedButton(
-                              child:Container(child: Text('Any Text')),
+                              child:Container(child: Text('Login')),
                               onPressed: (){
 
                                 setState(() {
-                          //      Navigator.push(context, MaterialPageRoute(builder: (context) =>  AuthService().handleAuthState()),//AccountPage()),);
-                              });}, ),
+                                  //      Navigator.push(context, MaterialPageRoute(builder: (context) =>  AuthService().handleAuthState()),//AccountPage()),);
+                                });}, ),
+                          ),
+/*
+                          Center(
+                            child: Row(
+                              children: [
+                                OutlinedButton(
+                                  child:Container(child: Text('Login')),
+                                  onPressed: (){
 
+                                    setState(() {
+                            //      Navigator.push(context, MaterialPageRoute(builder: (context) =>  AuthService().handleAuthState()),//AccountPage()),);
+                                  });}, ),
+                                SizedBox(width: 20,),
+                                OutlinedButton(
+                                  child:Container(child: Text('Sign Up')),
+                                  onPressed: (){
 
+                                    setState(() {
+                                      //      Navigator.push(context, MaterialPageRoute(builder: (context) =>  AuthService().handleAuthState()),//AccountPage()),);
+                                    });}, ),
+                              ],
+                            ),
                           )
+
+                          */
                         ],
                       ),
 
@@ -62,49 +83,33 @@ class _MydrawerState extends State<Mydrawer> {
 
 
           ListTile(
-            leading: Icon(Icons.bus_alert_sharp, color: Colors.white),
+            leading: Icon(Icons.book_outlined, color: Colors.white),
             title:
-            Text("Bus  1", style: TextStyle(color: Colors.white)),
+            Text("User MAnual", style: TextStyle(color: Colors.white)),
             onTap: () {
             //  Navigator.push(context,MaterialPageRoute(builder: (context) =>MessagesScreen(),));
             },
           ),
           ListTile(
-            leading: Icon(Icons.bus_alert_sharp, color: Colors.white),
+            leading: Icon(Icons.question_mark, color: Colors.white),
             title:
-            Text("Bus  1", style: TextStyle(color: Colors.white)),
+            Text("Campousia", style: TextStyle(color: Colors.white)),
             onTap: () {
               //  Navigator.push(context,MaterialPageRoute(builder: (context) =>MessagesScreen(),));
             },
           ),
           ListTile(
-            leading: Icon(Icons.bus_alert_sharp, color: Colors.white),
+            leading: Icon(Icons.message, color: Colors.white),
             title:
-            Text("Bus  1", style: TextStyle(color: Colors.white)),
+            Text("Feedback", style: TextStyle(color: Colors.white)),
             onTap: () {
               //  Navigator.push(context,MaterialPageRoute(builder: (context) =>MessagesScreen(),));
             },
           ),
           ListTile(
-            leading: Icon(Icons.bus_alert_sharp, color: Colors.white),
+            leading: Icon(Icons.person, color: Colors.white),
             title:
-            Text("Bus  1", style: TextStyle(color: Colors.white)),
-            onTap: () {
-              //  Navigator.push(context,MaterialPageRoute(builder: (context) =>MessagesScreen(),));
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.bus_alert_sharp, color: Colors.white),
-            title:
-            Text("Bus  1", style: TextStyle(color: Colors.white)),
-            onTap: () {
-              //  Navigator.push(context,MaterialPageRoute(builder: (context) =>MessagesScreen(),));
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.bus_alert_sharp, color: Colors.white),
-            title:
-            Text("Bus  1", style: TextStyle(color: Colors.white)),
+            Text("About Us", style: TextStyle(color: Colors.white)),
             onTap: () {
               //  Navigator.push(context,MaterialPageRoute(builder: (context) =>MessagesScreen(),));
             },
