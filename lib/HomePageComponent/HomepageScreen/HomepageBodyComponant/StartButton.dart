@@ -19,7 +19,7 @@ class _StartBUttonState extends State<StartBUtton> {
     return  GestureDetector(
       onTap: () async {
 
-        FirebaseStaticVAriables.isLoading= false;
+        FirebaseStaticVAriables.isLoading= false ;
         if(!FirebaseStaticVAriables.isLoading)
         {
           LoadingIndicator oPenDialouge = new LoadingIndicator(context);
