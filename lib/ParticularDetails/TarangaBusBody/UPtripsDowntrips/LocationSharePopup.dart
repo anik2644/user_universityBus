@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 
+import '../../../Taranga/TarangaHomePage.dart';
 import 'LocationShareButton.dart';
 
 class LocationSharePopup{
@@ -62,7 +63,8 @@ class LocationSharePopup{
                 title: Text("Already Shared"),
               ),
               ElevatedButton(onPressed: (){
-                Navigator.pop(context);
+                //Navigator.pop(context);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TarangaHomePage()));
               }, child: Text("Done"))
             ],
           ),

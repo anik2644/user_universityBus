@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
-import 'package:userapp/BusDetails/Location_view_templete.dart';
+import 'package:userapp/Maps/Location_view_templete.dart';
 import '../SecondaryHomePage/SecondaryBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -312,7 +312,7 @@ Future<void> load_data() async {
               BD.busName= Bus.busList[Bus.selectedBus].name;
               BD.sch = time;
               BD.upDown =ud;
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
+              //Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
 
 
               setState(() {

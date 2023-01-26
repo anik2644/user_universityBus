@@ -9,6 +9,7 @@ import 'package:userapp/StaticPart/Firebase/FirebaseReadArray.dart';
 import 'package:userapp/StaticPart/Firebase/FirebaseUpdate.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 
+import '../../../Model/LoadIndicator.dart';
 import '../../../StaticPart/BusStaticVariables.dart';
 import '../../../Taranga/TarangaHomePage.dart';
 import 'LocationSharePopup.dart';
@@ -100,6 +101,11 @@ class _LocationShareButtonState extends State<LocationShareButton> {
       }
 
 
+      setState(() {
+        _finalAction();
+      });
+
+
 
     }
     else
@@ -108,8 +114,8 @@ class _LocationShareButtonState extends State<LocationShareButton> {
       ModelStatic.locSharePopupFlag=0;
       print("Not SHared");
       //Navigator.pop(context);
-      // LocationSharePopup popup =LocationSharePopup(context,widget.index);
-      // popup.openDialouge(widget.index);
+       LocationSharePopup popup =LocationSharePopup(context,widget.index);
+       popup.openDialouge(widget.index);
 
     }
   }
@@ -123,11 +129,6 @@ class _LocationShareButtonState extends State<LocationShareButton> {
           await FirebaseReadArray.loadLocShreFlag();
           await LocationtoBeSharedOrNot();
 
-          setState(() {
-            _finalAction();
-          });
-
-
         },
         child: Text("ShareLocation"));
   }
@@ -136,10 +137,7 @@ class _LocationShareButtonState extends State<LocationShareButton> {
   {
 
     //ModelStatic.gps_share_flag = 1;
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => TarangaHomePage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TarangaHomePage()));
     //  Navigator.pop(context);
    // print("Location Share Done");
   }

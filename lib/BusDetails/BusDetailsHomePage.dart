@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/BusDetails/Bd.dart';
 import 'package:userapp/BusDetails/BusDetailsBody.dart';
-import 'package:userapp/BusDetails/Location_view_templete.dart';
+import 'package:userapp/Maps/Location_view_templete.dart';
 import 'package:userapp/SecondaryHomePage/SecondaryBody.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -8,7 +8,7 @@ import 'package:userapp/StaticPart/Firebase/FirebaseFetchId.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
-import '../../../BusDetails/Location_view_templete.dart';
+import '../../../Maps/Location_view_templete.dart';
 import '../../../StaticPart/BusStaticVariables.dart';
 
 class ScheduleButton extends StatefulWidget {
@@ -23,7 +23,7 @@ class ScheduleButton extends StatefulWidget {
 class _ScheduleButtonState extends State<ScheduleButton> {
 
 
-  Future<Position> getCurrentLocation() async {
+  Future<Position> openLocationSetting() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       LocationPermission permission = await Geolocator.checkPermission();
@@ -83,13 +83,38 @@ class _ScheduleButtonState extends State<ScheduleButton> {
     return await Geolocator.getCurrentPosition();
   }
 
+
+  late double llat,llong;
+  Future<void> locfetch()
+  async {
+    var docSnapshot= await FirebaseFirestore.instance.collection("Location").doc(FirebaseStaticVAriables.selected_location_id).get();
+    if (docSnapshot.exists) {
+
+      print(docSnapshot.data());
+      GeoPoint position = docSnapshot.get('currentLocation');
+      print(position.longitude.toString());
+
+      setState(() {
+
+        llong= position.longitude.toDouble();
+        llat =position.latitude.toDouble();
+        // appbartext= appbartext;
+      });
+
+    }
+  }
+
   void _locationVIew () async {
     BusStaticVariables.busName = "Taranga";
     BusStaticVariables.sch = widget.time;
     BusStaticVariables.upDown = widget.ud;
 
     await FirebaseFetchId.getLocationDocID();
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView()));
+    await locfetch();
+    setState(() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LocationView(llat,llong)));
+    });
+
   }
 
   void _shareLocation () async {
@@ -98,13 +123,18 @@ class _ScheduleButtonState extends State<ScheduleButton> {
   BusStaticVariables.sch = widget.time;
   BusStaticVariables.upDown = widget.ud;
 
-  getCurrentLocation().then((value) {});
+  openLocationSetting().then((value) {});
 
   if (ModelStatic.gps_share_flag == 0)
   {
-  FirebaseFetchId.getLocationDocID();
-  LocationSharePopup popup =LocationSharePopup(context,widget.index);
-  popup.openDialouge(widget.index);
+  await FirebaseFetchId.getLocationDocID();
+  setState(() {
+
+    print(FirebaseStaticVAriables.selected_location_id);
+    LocationSharePopup popup =LocationSharePopup(context,widget.index);
+    popup.openDialouge(widget.index);
+
+  });
 
   }
 
