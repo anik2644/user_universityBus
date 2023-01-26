@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/StaticPart/BusStaticVariables.dart';
 import 'package:userapp/StaticPart/ModelStatic.dart';
 
 import '../../../Taranga/TarangaHomePage.dart';
@@ -41,7 +42,7 @@ class LocationSharePopup{
                   hintText: "PassCode",
                 ),
               ),
-              LocationShareButton(this._noticeController,this.index),
+              LocationShareButton(this._noticeController,this.index,this._passCodeController),
             ],
           ),
         ));
@@ -60,12 +61,13 @@ class LocationSharePopup{
             children: [
 
               ListTile(
-                title: Text("Already Shared"),
+                title:ModelStatic.passwordNotMatched==0? Text("Already Shared") : Text("Password not matched"),
               ),
               ElevatedButton(onPressed: (){
-                //Navigator.pop(context);
+                ModelStatic.locSharePopupFlag=1;
+                ModelStatic.passwordNotMatched=0;
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TarangaHomePage()));
-              }, child: Text("Done"))
+              }, child:ModelStatic.passwordNotMatched==0? Text("Done"): Text("Go Back"))
             ],
           ),
         ));

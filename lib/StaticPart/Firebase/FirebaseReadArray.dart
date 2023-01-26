@@ -39,6 +39,7 @@ class FirebaseReadArray{
   static Future<void> loadLocShreFlag()  async {
 
     BusStaticVariables.locShare.clear();
+    BusStaticVariables.Password.clear();
 
 
     var docSnapshot = await FirebaseFirestore.instance.collection("schedule")
@@ -48,6 +49,10 @@ class FirebaseReadArray{
       List.from(docSnapshot.get('locShare')).forEach((element) {
         String data = element;
         BusStaticVariables.locShare.add(data);
+      });
+      List.from(docSnapshot.get('password')).forEach((element) {
+        String data = element;
+        BusStaticVariables.Password.add(data);
       });
 
     }

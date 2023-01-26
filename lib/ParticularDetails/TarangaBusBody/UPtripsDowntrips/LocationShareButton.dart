@@ -17,8 +17,9 @@ import 'LocationSharePopup.dart';
 class LocationShareButton extends StatefulWidget {
 
   TextEditingController  _noticeController;
+  TextEditingController _passCodeController;
   int index;
-  LocationShareButton(this._noticeController,this.index);
+  LocationShareButton(this._noticeController,this.index,this._passCodeController);
 
   @override
   State<LocationShareButton> createState() => _LocationShareButtonState();
@@ -62,7 +63,9 @@ class _LocationShareButtonState extends State<LocationShareButton> {
   Future<void> LocationtoBeSharedOrNot() async {
 
 
-    if(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]=="1")
+
+     if(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]=="1"
+         && BusStaticVariables.Password[ModelStatic.location_share_schedule_index]==widget._passCodeController.text)
     {
 
 
@@ -110,6 +113,10 @@ class _LocationShareButtonState extends State<LocationShareButton> {
     }
     else
     {
+      if(BusStaticVariables.Password[ModelStatic.location_share_schedule_index]!=widget._passCodeController.text)
+      {
+          ModelStatic.passwordNotMatched=1;
+      }
       print(BusStaticVariables.locShare[ModelStatic.location_share_schedule_index]);
       ModelStatic.locSharePopupFlag=0;
       print("Not SHared");
@@ -127,7 +134,10 @@ class _LocationShareButtonState extends State<LocationShareButton> {
 
           ModelStatic.location_share_schedule_index = widget.index;
           await FirebaseReadArray.loadLocShreFlag();
-          await LocationtoBeSharedOrNot();
+          setState(() {
+            LocationtoBeSharedOrNot();
+          });
+
 
         },
         child: Text("ShareLocation"));

@@ -9,6 +9,7 @@ class ModelStatic{
 
   static String particularAppbarText = "Appbar";
   static int gps_share_flag = 0;
+  static int passwordNotMatched = 0;
   static late int location_share_schedule_index;
   static late StreamSubscription<LocationData> locationSubscription;
   static DateTime start_time = new DateTime.now();
