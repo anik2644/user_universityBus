@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../SecondaryHomePage/SecondaryBody.dart';
 import 'BusStaticVariables.dart';
 import 'FirabaseStaticVariables.dart';
 import 'Firebase/FirebaseFetchId.dart';
@@ -7,10 +8,12 @@ import 'package:location/location.dart';
 
 class ModelStatic{
 
-  static String particularAppbarText = "Appbar";
+  static String particularAppbarText = "Taranga";
   static int gps_share_flag = 0;
   static int passwordNotMatched = 0;
-  static late int location_share_schedule_index;
+  static int location_share_schedule_index=3;
+  static late int selected_bus_index;
+
   static late StreamSubscription<LocationData> locationSubscription;
   static DateTime start_time = new DateTime.now();
 
